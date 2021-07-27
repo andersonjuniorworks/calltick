@@ -9,7 +9,7 @@ public enum Profile {
     private int code;
 	private String description;
 	
-	private Perfil(int code, String description) {
+	private Profile(int code, String description) {
 		this.code = code;
 		this.description = description;
 	}

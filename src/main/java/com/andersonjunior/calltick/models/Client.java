@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "Client")
-@Table(nme = "tb_clients")
+@Table(name = "tb_clients")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -38,8 +38,8 @@ public class Client implements Serializable {
     private String adress;
     private String homeNumber;
     private String complement;
-    private State state;
-    private City city;
+    private String state;
+    private String city;
     private String phoneNumberOne;
     private String phoneNumberTwo;
     private String email;
