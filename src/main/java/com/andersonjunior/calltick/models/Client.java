@@ -3,6 +3,7 @@ package com.andersonjunior.calltick.models;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +22,7 @@ import lombok.Setter;
 @Table(nme = "tb_clients")
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Getter @Setter
 public class Client implements Serializable {
 
@@ -27,6 +30,7 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer type;
+    @Column(unique = true)
     private String cpfOrCnpj;
     private String fullname;
     private String nickname;

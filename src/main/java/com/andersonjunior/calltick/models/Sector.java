@@ -8,29 +8,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Entity(name = "User")
-@Table(name = "tb_users")
+@Entity(name = "Sector")
+@Table(name = "tb_sectors")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @Getter @Setter
-public class User implements Serializable {
+public class Sector implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String fullname;
-    @Column(unique = true)
-    private String email;
-    @JsonIgnore
-    private String password;
-    private Integer profile;
+    private String description;
     
 }
