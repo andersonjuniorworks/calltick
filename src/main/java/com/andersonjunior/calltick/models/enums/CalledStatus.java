@@ -1,9 +1,11 @@
 package com.andersonjunior.calltick.models.enums;
 
-public enum ClientType {
+public enum CalledStatus {
 
-    PESSOAFISICA(1, "Pessoa Física"),
-	PESSOAJURIDICA(2, "Pessoa Jurídica");
+    ABERTO(1, "Aberto"),
+	PENDENTE(2, "Pendente"),
+    FINALIZADO(3, "Finalizado"),
+    CANCELADO(4, "Cancelado");
 	
 	private int code;
 	private String description;
@@ -21,13 +23,13 @@ public enum ClientType {
 		return description;
 	}
 	
-	public static ClientType toEnum(Integer code) {
+	public static CalledStatus toEnum(Integer code) {
 		
 		if (code == null) {
 			return null;
 		}
 		
-		for (ClientType x : ClientType.values()) {
+		for (CalledStatus x : CalledStatus.values()) {
 			if (code.equals(x.getCod())) {
 				return x;
 			}
