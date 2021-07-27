@@ -10,7 +10,7 @@ public enum CalledStatus {
 	private int code;
 	private String description;
 	
-	private TipoCliente(int code, String description) {
+	private CalledStatus(int code, String description) {
 		this.code = code;
 		this.description = description;
 	}
@@ -30,7 +30,7 @@ public enum CalledStatus {
 		}
 		
 		for (CalledStatus x : CalledStatus.values()) {
-			if (code.equals(x.getCod())) {
+			if (code.equals(x.getCode())) {
 				return x;
 			}
 		}
