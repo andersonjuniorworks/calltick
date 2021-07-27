@@ -29,5 +29,7 @@ public class User implements Serializable {
     private String email;
     @Getter @Setter
     private String password;
+    @Getter @Setter
+    private Integer profile;
     
 }
