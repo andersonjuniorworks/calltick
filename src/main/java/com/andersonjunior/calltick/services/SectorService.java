@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import com.andersonjunior.calltick.dto.SectorDto;
 import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.repositories.SectorRepository;
+import com.andersonjunior.calltick.services.exceptions.DataIntegrityException;
+import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,16 +24,16 @@ public class SectorService {
     private SectorRepository sectorRepo;
 
     public List<Sector> findAll(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size); 
+        Pageable pageable = PageRequest.of(page, size);
         return sectorRepo.findAll(pageable).getContent();
     }
 
     public Sector findById(Integer id) {
         Optional<Sector> obj = sectorRepo.findById(id);
-        return obj.orElseThrow();
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Setor não encontrado na base de dados!!!"));
     }
 
-    public List<Sector> findByDescription(String description){
+    public List<Sector> findByDescription(String description) {
         return sectorRepo.findByDescription(description);
     }
 
@@ -53,7 +55,7 @@ public class SectorService {
         try {
             sectorRepo.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Não é possível excluir este setor!!!");
+            throw new DataIntegrityException("Não é possível excluir esse setor!");
         }
     }
 
@@ -64,5 +66,5 @@ public class SectorService {
     private void updateData(Sector newObj, Sector obj) {
         newObj.setDescription(obj.getDescription());
     }
-    
+
 }

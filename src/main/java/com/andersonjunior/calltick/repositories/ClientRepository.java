@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer> {
 
-    Client findByCpfOrCnpj(String cpfOrCnpj);
-
     List<Client> findByFullname(String fullname);
 
     List<Client> findByNickname(String nickname);

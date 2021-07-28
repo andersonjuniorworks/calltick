@@ -23,21 +23,16 @@ public class ClientService {
     private ClientRepository clientRepo;
 
     public List<Client> findAll(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size); 
+        Pageable pageable = PageRequest.of(page, size);
         return clientRepo.findAll(pageable).getContent();
     }
 
-    public Client findById(Integer id) {
+    public Client find(Integer id) {
         Optional<Client> obj = clientRepo.findById(id);
         return obj.orElseThrow();
     }
 
-    public Client findByCpfOrCnpj(String cpfOrCnpj) {
-        Client obj = clientRepo.findByCpfOrCnpj(cpfOrCnpj);
-		return obj;
-    }
-
-    public List<Client> findByDescription(String fullname){
+    public List<Client> findByDescription(String fullname) {
         return clientRepo.findByFullname(fullname);
     }
 
@@ -49,24 +44,25 @@ public class ClientService {
 
     @Transactional
     public Client update(Client obj) {
-        Client newObj = findById(obj.getId());
+        Client newObj = find(obj.getId());
         updateData(newObj, obj);
         return clientRepo.save(newObj);
     }
 
     public void delete(Integer id) {
-        findById(id);
+        find(id);
         try {
             clientRepo.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Não é possível excluir este cliente!!!");
+            throw new DataIntegrityViolationException("Não é possível excluir este cliente!");
         }
     }
 
     public Client fromDTO(ClientDto objDto) {
-        return new Client(objDto.getId(), objDto.getType(), objDto.getCpfOrCnpj(), objDto.getFullname(), objDto.getNickname(),
-        objDto.getZipcode(), objDto.getAddress(), objDto.getHomeNumber(), objDto.getComplement(), objDto.getState(), objDto.getCity(), 
-        objDto.getPhoneNumberOne(), objDto.getPhoneNumberTwo(), objDto.getEmail(), new Date());
+        return new Client(objDto.getId(), objDto.getType(), objDto.getCpfOrCnpj(), objDto.getFullname(),
+                objDto.getNickname(), objDto.getZipcode(), objDto.getAddress(), objDto.getHomeNumber(),
+                objDto.getComplement(), objDto.getState(), objDto.getCity(), objDto.getPhoneNumberOne(),
+                objDto.getPhoneNumberTwo(), objDto.getEmail(), new Date());
     }
 
     private void updateData(Client newObj, Client obj) {
@@ -83,5 +79,5 @@ public class ClientService {
         newObj.setZipcode(obj.getPhoneNumberTwo());
         newObj.setZipcode(obj.getEmail());
     }
-    
+
 }

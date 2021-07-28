@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,5 +35,8 @@ public class User implements Serializable {
     @JsonIgnore
     private String password;
     private Integer profile;
+    @JsonIgnore
+    @ManyToOne
+    private Called called;
     
 }

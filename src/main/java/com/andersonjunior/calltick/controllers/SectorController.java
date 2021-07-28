@@ -1,0 +1,71 @@
+package com.andersonjunior.calltick.controllers;
+
+import java.net.URI;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import com.andersonjunior.calltick.dto.SectorDto;
+import com.andersonjunior.calltick.models.Sector;
+import com.andersonjunior.calltick.services.SectorService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+@RestController
+@RequestMapping(value = "/api")
+public class SectorController {
+
+    @Autowired
+    private SectorService service;
+
+    @GetMapping(value = "/sectors/{id}")
+    public ResponseEntity<Sector> findById(@PathVariable Integer id) {
+        Sector obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value = "/sectors")
+    public ResponseEntity<List<Sector>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size) {
+        return new ResponseEntity<List<Sector>>(service.findAll(page, size), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/sectors/description")
+    public ResponseEntity<List<Sector>> findSectorByDescription(@RequestParam(value = "filter") String description) {
+        return new ResponseEntity<List<Sector>>(service.findByDescription(description), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/sector")
+    public ResponseEntity<Void> insert(@Valid @RequestBody SectorDto objDto) {
+        Sector obj = service.fromDTO(objDto);
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "/sector/{id}")
+    public ResponseEntity<Void> update(@Valid @RequestBody Sector sector, @PathVariable Integer id) {
+        sector.setId(id);
+        service.update(sector);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(value = "/sector/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+}
