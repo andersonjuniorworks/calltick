@@ -32,7 +32,7 @@ public class ClientService {
         return obj.orElseThrow();
     }
 
-    public List<Client> findByDescription(String fullname) {
+    public List<Client> findByFullname(String fullname) {
         return clientRepo.findByFullname(fullname);
     }
 
