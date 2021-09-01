@@ -21,7 +21,6 @@ import lombok.Setter;
 @Entity(name = "User")
 @Table(name = "tb_users")
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @Getter @Setter
 public class User implements Serializable {
@@ -38,5 +37,13 @@ public class User implements Serializable {
     @JsonIgnore
     @ManyToOne
     private Called called;
-    
+
+    public User(Integer id, String fullname, String email, String password, Integer profile) {
+        this.id = id;
+        this.fullname = fullname;
+        this.email = email;
+        this.password = password;
+        this.profile = profile;
+    }
+
 }

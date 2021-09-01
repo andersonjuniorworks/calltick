@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import com.andersonjunior.calltick.dto.ClientDto;
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.repositories.ClientRepository;
+import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,7 +30,7 @@ public class ClientService {
 
     public Client find(Integer id) {
         Optional<Client> obj = clientRepo.findById(id);
-        return obj.orElseThrow();
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado na base de dados!!!"));
     }
 
     public List<Client> findByFullname(String fullname) {
