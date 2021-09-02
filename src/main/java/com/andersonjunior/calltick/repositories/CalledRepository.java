@@ -15,11 +15,13 @@ import org.springframework.stereotype.Repository;
 public interface CalledRepository extends JpaRepository<Called, Long>{
     
     @Query(value = "SELECT c FROM Called c WHERE c.client = :client AND c.status = :status")
-    List<Called> findByClient(Client client, int status);
+    List<Called> findByClient(Client client, int status, Pageable pageable);
 
     @Query(value = "SELECT c FROM Called c WHERE c.openingDate BETWEEN :startDate AND :endDate")
-    List<Called> findByPeriod(Date startDate, Date endDate);
+    List<Called> findByPeriod(Date startDate, Date endDate, Pageable pageable);
 
     List<Called> findByActive(Integer active, Pageable pageable);
+
+    List<Called> findByStatus(Integer status, Pageable pageable);
 
 }

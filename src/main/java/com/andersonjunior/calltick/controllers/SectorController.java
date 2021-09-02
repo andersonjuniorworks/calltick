@@ -23,31 +23,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/sectors")
 public class SectorController {
 
     @Autowired
     private SectorService service;
 
-    @GetMapping(value = "/sectors/{id}")
+    @ApiOperation(value = "Retorna um setor por código")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Sector> findById(@PathVariable Integer id) {
         Sector obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/sectors")
+    @ApiOperation(value = "Retorna todos os setores")
+    @GetMapping()
     public ResponseEntity<List<Sector>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
         return new ResponseEntity<List<Sector>>(service.findAll(page, size), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/sectors/description")
+    @ApiOperation(value = "Retorna um setor por descrição")
+    @GetMapping(value = "/description")
     public ResponseEntity<List<Sector>> findSectorByDescription(@RequestParam(value = "filter") String description) {
         return new ResponseEntity<List<Sector>>(service.findByDescription(description), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/sector")
+    @ApiOperation(value = "Insere um setor")
+    @PostMapping()
     public ResponseEntity<Void> insert(@Valid @RequestBody SectorDto objDto) {
         Sector obj = service.fromDTO(objDto);
         obj = service.insert(obj);
@@ -55,14 +61,16 @@ public class SectorController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping(value = "/sector/{id}")
+    @ApiOperation(value = "Editar um setor")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody Sector sector, @PathVariable Integer id) {
         sector.setId(id);
         service.update(sector);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(value = "/sector/{id}")
+    @ApiOperation(value = "Exclui um setor")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

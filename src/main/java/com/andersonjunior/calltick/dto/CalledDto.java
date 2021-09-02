@@ -2,7 +2,6 @@ package com.andersonjunior.calltick.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Sector;
@@ -21,7 +20,7 @@ public class CalledDto implements Serializable {
 
     private Sector sector;
 
-    private List<User> users;
+    private User user;
 
     private Date openingDate;
 

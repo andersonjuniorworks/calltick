@@ -2,16 +2,12 @@ package com.andersonjunior.calltick.models;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -45,9 +41,9 @@ public class Called implements Serializable {
     @OneToOne
     private Sector sector;
 
-    @ApiModelProperty(value = "Usuários responsáveis pelo chamado")
-    @OneToMany(mappedBy = "called", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> users;
+    @ApiModelProperty(value = "Usuário responsável pelo chamado")
+    @OneToOne
+    private User user;
 
     @ApiModelProperty(value = "Data de abertura do chamado")
     @Temporal(TemporalType.TIMESTAMP)

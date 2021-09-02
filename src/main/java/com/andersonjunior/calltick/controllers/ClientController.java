@@ -23,31 +23,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "API Rest")
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/clients")
 public class ClientController {
 
     @Autowired
     private ClientService service;
 
-    @GetMapping(value = "/clients/{id}")
+    @ApiOperation(value = "Retorna um cliente por código")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Client> findById(@PathVariable Integer id) {
         Client obj = service.find(id);
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/clients")
+    @ApiOperation(value = "Retorna todos os clientes")
+    @GetMapping()
     public ResponseEntity<List<Client>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
         return new ResponseEntity<List<Client>>(service.findAll(page, size), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/clients/fullname")
+    @ApiOperation(value = "Retorna clientes por nome completo")
+    @GetMapping(value = "/fullname")
     public ResponseEntity<List<Client>> findByFullname(@RequestParam(value = "filter") String fullname) {
         return new ResponseEntity<List<Client>>(service.findByFullname(fullname), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/client")
+    @ApiOperation(value = "Insere um novo cliente")
+    @PostMapping()
     public ResponseEntity<Void> insert(@Valid @RequestBody ClientDto objDto) {
         Client obj = service.fromDTO(objDto);
         obj = service.insert(obj);
@@ -55,14 +63,16 @@ public class ClientController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping(value = "/client/{id}")
+    @ApiOperation(value = "Edita um cliente")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody Client client, @PathVariable Integer id) {
         client.setId(id);
         service.update(client);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(value = "/client/{id}")
+    @ApiOperation(value = "Exclui um cliente")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

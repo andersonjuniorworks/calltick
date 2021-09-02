@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(value = "API Rest")
 @RestController
-@RequestMapping(value = "/api/calls/")
+@RequestMapping(value = "/api/calls")
 public class CalledController {
 
     private CalledService service;
@@ -39,7 +39,7 @@ public class CalledController {
     }
 
     @ApiOperation(value = "Retorna um chamado por código")
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}", produces="application/json")
     public ResponseEntity<Called> findById(@PathVariable Long id) {
         Called obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
@@ -53,7 +53,7 @@ public class CalledController {
     }
 
     @ApiOperation(value = "Retorna uma lista de chamados através da situação cadastral")
-    @GetMapping(value = "all", produces="application/json")
+    @GetMapping(value = "/all", produces="application/json")
     public ResponseEntity<List<Called>> findAllCalls(
         @RequestParam(required = true, defaultValue = "0") Integer active,
         @RequestParam(required = false, defaultValue = "0") Integer page,
@@ -61,14 +61,28 @@ public class CalledController {
         return new ResponseEntity<List<Called>>(service.findAllCalls(active, page, size), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Retorna uma lista de chamados por status")
+    @GetMapping(value = "/status", produces="application/json")
+    public ResponseEntity<List<Called>> findByStatus(
+    @RequestParam(required = false, defaultValue = "0") Integer status,
+    @RequestParam(required = false, defaultValue = "0") Integer page,
+    @RequestParam(required = false, defaultValue = "5") Integer size) {
+        return new ResponseEntity<List<Called>>(service.findByStatus(status, page, size), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "Retorna uma lista de chamados por cliente")
-    @GetMapping(value = "client")
-    public ResponseEntity<List<Called>> findByClient(@RequestParam(value = "filter") Client client, Integer status) {
-        return new ResponseEntity<List<Called>>(service.findByClient(client, status), HttpStatus.OK);
+    @GetMapping(value = "/client", produces="application/json")
+    public ResponseEntity<List<Called>> findByClient(
+        @RequestParam(required = true) Client client,
+        @RequestParam(required = false, defaultValue = "0") Integer status,
+        @RequestParam(required = false, defaultValue = "0") Integer page,
+        @RequestParam(required = false, defaultValue = "5") Integer size
+    ) {
+        return new ResponseEntity<List<Called>>(service.findByClient(client, status, page, size), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Inserir chamado")
-    @PostMapping(value = "insert")
+    @PostMapping(value = "/insert", produces="application/json")
     public ResponseEntity<Void> insert(@Valid @RequestBody CalledDto objDto) {
         Called obj = service.fromDTO(objDto);
         obj = service.insert(obj);
@@ -77,7 +91,7 @@ public class CalledController {
     }
 
     @ApiOperation(value = "Editar chamado")
-    @PutMapping(value = "update/{id}")
+    @PutMapping(value = "/update/{id}", produces="application/json")
     public ResponseEntity<Void> update(@Valid @RequestBody Called called, @PathVariable Long id) {
         called.setId(id);
         service.update(called);
@@ -85,11 +99,19 @@ public class CalledController {
     }
 
     @ApiOperation(value = "Excluir chamado")
-    @PutMapping(value = "delete/{id}")
+    @PutMapping(value = "/delete/{id}", produces="application/json")
     public ResponseEntity<Void> delete(@Valid @RequestBody Called called, @PathVariable Long id) {
         called.setId(id);
         service.delete(called);
         return ResponseEntity.noContent().build();
+    }
+
+    @ApiOperation(value = "Transferir chamado")
+    @PutMapping(value = "/transfer/{id}", produces="application/json")
+    public ResponseEntity<Void> transfer(@Valid @RequestBody Called called, @PathVariable Long id) {
+        called.setId(id);
+        service.transfer(called);
+        return ResponseEntity.ok().build();
     }
 
 }
