@@ -46,6 +46,13 @@ public class SectorController {
         return new ResponseEntity<List<Sector>>(service.findAll(page, size), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Retorna a quantidade de setores no banco")
+    @GetMapping(value = "/count")
+    public ResponseEntity<Long> countRegisters() {
+        Long obj = service.count();
+        return ResponseEntity.ok().body(obj);
+    }
+
     @ApiOperation(value = "Retorna um setor por descrição")
     @GetMapping(value = "/description")
     public ResponseEntity<List<Sector>> findSectorByDescription(@RequestParam(value = "filter") String description) {

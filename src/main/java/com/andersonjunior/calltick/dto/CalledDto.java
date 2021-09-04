@@ -15,17 +15,16 @@ import lombok.NoArgsConstructor;
 public class CalledDto implements Serializable {
 
     private Long id;
-
     private Client client;
-
     private Sector sector;
-
+    private String subject;
+    private String description;
     private User user;
-
-    private Date openingDate;
-
-    private Date closingDate;
+    private String openingDate;
+    private String closingDate;
     private String openBy;
+    private String closeBy;
+    private String technicalReport;
     private int status;
     private int active;
     

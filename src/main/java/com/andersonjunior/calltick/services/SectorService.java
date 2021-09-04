@@ -33,6 +33,11 @@ public class SectorService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Setor não encontrado na base de dados!!!"));
     }
 
+    public Long count() {
+        Long count = sectorRepo.count();
+        return count;
+    }
+
     public List<Sector> findByDescription(String description) {
         return sectorRepo.findByDescription(description);
     }

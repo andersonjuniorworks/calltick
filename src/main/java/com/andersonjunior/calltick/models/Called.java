@@ -1,7 +1,6 @@
 package com.andersonjunior.calltick.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,20 +38,30 @@ public class Called implements Serializable {
     @OneToOne
     private Sector sector;
 
+    @ApiModelProperty(value = "Assunto do chamado")
+    private String subject;
+
+    @ApiModelProperty(value = "Descrição da solicitação do cliente")
+    private String description;
+
     @ApiModelProperty(value = "Usuário responsável pelo chamado")
     @OneToOne
     private User user;
 
     @ApiModelProperty(value = "Data de abertura do chamado")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date openingDate;
+    private String openingDate;
 
     @ApiModelProperty(value = "Data de fechamento do chamado")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date closingDate;
+    private String closingDate;
 
     @ApiModelProperty(value = "Usuário que abriu o chamado")
     private String openBy;
+
+    @ApiModelProperty(value = "Usuário que fechou o chamado")
+    private String closeBy;
+
+    @ApiModelProperty(value = "Relato técnico ao finalizar o chamado")
+    private String technicalReport;
 
     @ApiModelProperty(value = "Situação do chamado: 1 - Aberto; 2 - Pendente; 3 - Finalizado; 4 - Cancelado")
     private int status;

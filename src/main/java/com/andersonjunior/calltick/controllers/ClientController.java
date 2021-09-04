@@ -48,6 +48,13 @@ public class ClientController {
         return new ResponseEntity<List<Client>>(service.findAll(page, size), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Retorna a quantidade de clientes no banco")
+    @GetMapping(value = "/count")
+    public ResponseEntity<Long> countRegisters() {
+        Long obj = service.count();
+        return ResponseEntity.ok().body(obj);
+    }
+
     @ApiOperation(value = "Retorna clientes por nome completo")
     @GetMapping(value = "/fullname")
     public ResponseEntity<List<Client>> findByFullname(@RequestParam(value = "filter") String fullname) {

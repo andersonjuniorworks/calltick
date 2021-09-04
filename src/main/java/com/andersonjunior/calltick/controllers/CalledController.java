@@ -1,6 +1,7 @@
 package com.andersonjunior.calltick.controllers;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -52,29 +53,38 @@ public class CalledController {
         return new ResponseEntity<List<Called>>(service.findAll(page, size), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Retorna uma lista de chamados através da situação cadastral")
-    @GetMapping(value = "/all", produces="application/json")
-    public ResponseEntity<List<Called>> findAllCalls(
-        @RequestParam(required = true, defaultValue = "0") Integer active,
-        @RequestParam(required = false, defaultValue = "0") Integer page,
-        @RequestParam(required = false, defaultValue = "5") Integer size) {
-        return new ResponseEntity<List<Called>>(service.findAllCalls(active, page, size), HttpStatus.OK);
+    @ApiOperation(value = "Retorna a quantidade de chamados no banco")
+    @GetMapping(value = "/count")
+    public ResponseEntity<Long> countRegisters() {
+        Long obj = service.count();
+        return ResponseEntity.ok().body(obj);
     }
 
-    @ApiOperation(value = "Retorna uma lista de chamados por status")
-    @GetMapping(value = "/status", produces="application/json")
+    @ApiOperation(value = "Retorna uma lista de chamados pelo status e situação cadastral")
+    @GetMapping(value = "/all", produces="application/json")
     public ResponseEntity<List<Called>> findByStatus(
-    @RequestParam(required = false, defaultValue = "0") Integer status,
+    @RequestParam(required = false, defaultValue = "1") Integer status,
+    @RequestParam(required = false, defaultValue = "0") Integer active,
     @RequestParam(required = false, defaultValue = "0") Integer page,
     @RequestParam(required = false, defaultValue = "5") Integer size) {
-        return new ResponseEntity<List<Called>>(service.findByStatus(status, page, size), HttpStatus.OK);
+        return new ResponseEntity<List<Called>>(service.findAllCalls(status, active, page, size), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Retorna uma lista de chamados por periodo")
+    @GetMapping(value = "/period", produces="application/json")
+    public ResponseEntity<List<Called>> findByPeriod(
+    @RequestParam(required = true) String startDate,
+    @RequestParam(required = true) String endDate,
+    @RequestParam(required = false, defaultValue = "0") Integer page,
+    @RequestParam(required = false, defaultValue = "5") Integer size) {
+        return new ResponseEntity<List<Called>>(service.findByPeriod(startDate, endDate, page, size), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Retorna uma lista de chamados por cliente")
     @GetMapping(value = "/client", produces="application/json")
     public ResponseEntity<List<Called>> findByClient(
         @RequestParam(required = true) Client client,
-        @RequestParam(required = false, defaultValue = "0") Integer status,
+        @RequestParam(required = false, defaultValue = "1") Integer status,
         @RequestParam(required = false, defaultValue = "0") Integer page,
         @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
@@ -103,6 +113,14 @@ public class CalledController {
     public ResponseEntity<Void> delete(@Valid @RequestBody Called called, @PathVariable Long id) {
         called.setId(id);
         service.delete(called);
+        return ResponseEntity.noContent().build();
+    }
+
+    @ApiOperation(value = "Finalizar chamado")
+    @PutMapping(value = "/finish/{id}", produces="application/json")
+    public ResponseEntity<Void> finish(@Valid @RequestBody Called called, @PathVariable Long id) {
+        called.setId(id);
+        service.finishCalled(called);
         return ResponseEntity.noContent().build();
     }
 

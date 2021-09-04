@@ -33,6 +33,11 @@ public class ClientService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado na base de dados!!!"));
     }
 
+    public Long count() {
+        Long count = clientRepo.count();
+        return count;
+    }
+
     public List<Client> findByFullname(String fullname) {
         return clientRepo.findByFullname(fullname);
     }
