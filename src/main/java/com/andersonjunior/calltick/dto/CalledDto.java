@@ -1,7 +1,6 @@
 package com.andersonjunior.calltick.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Sector;

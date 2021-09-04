@@ -1,7 +1,6 @@
 package com.andersonjunior.calltick.controllers;
 
 import java.net.URI;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
