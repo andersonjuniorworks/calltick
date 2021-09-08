@@ -28,7 +28,7 @@ public class ClientService {
         return clientRepo.findAll(pageable).getContent();
     }
 
-    public Client find(Integer id) {
+    public Client find(Long id) {
         Optional<Client> obj = clientRepo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado na base de dados!!!"));
     }
@@ -55,12 +55,12 @@ public class ClientService {
         return clientRepo.save(newObj);
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         find(id);
         try {
             clientRepo.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Não é possível excluir este cliente!");
+            throw new DataIntegrityViolationException("Não é possível excluir clientes com chamados ou pagamentos vinculados");
         }
     }
 

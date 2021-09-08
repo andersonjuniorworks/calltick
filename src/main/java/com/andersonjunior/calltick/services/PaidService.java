@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Paid;
 import com.andersonjunior.calltick.repositories.PaidRepository;
 import com.andersonjunior.calltick.services.exceptions.DataIntegrityException;
@@ -36,6 +37,10 @@ public class PaidService {
     public List<Paid> findByPeriod(Date startDate, Date endDate, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return paidRepo.findByDateOfPaymentBetween(startDate, endDate, pageable);
+    }
+
+    public List<Paid> findByClient(Client client) {
+        return paidRepo.findByClient(client);
     }
 
     @Transactional

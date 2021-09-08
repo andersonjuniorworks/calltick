@@ -29,7 +29,7 @@ public class Client implements Serializable {
     @ApiModelProperty(value = "Código do cliente")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @ApiModelProperty(value = "1 - Pessoa Física; 2 - Pessoa Juridíca")
     private Integer type;
 
