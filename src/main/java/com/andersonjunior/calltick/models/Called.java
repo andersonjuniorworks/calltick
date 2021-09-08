@@ -1,51 +1,72 @@
 package com.andersonjunior.calltick.models;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity(name = "Called")
-@Table(name = "calls")
+@Table(name = "tb_calls")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
 public class Called implements Serializable {
 
+    @ApiModelProperty(value = "Código do chamado")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
+    @ApiModelProperty(value = "Cliente vinculado ao chamado")
     @JsonIgnore
     @ManyToOne
     private Client client;
+
+    @ApiModelProperty(value = "Setor do chamado")
     @OneToOne
     private Sector sector;
-    @OneToMany(mappedBy = "called", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> users;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date openingDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date closingDate;
+
+    @ApiModelProperty(value = "Assunto do chamado")
+    private String subject;
+
+    @ApiModelProperty(value = "Descrição da solicitação do cliente")
+    private String description;
+
+    @ApiModelProperty(value = "Usuário responsável pelo chamado")
+    @OneToOne
+    private User user;
+
+    @ApiModelProperty(value = "Data de abertura do chamado")
+    private String openingDate;
+
+    @ApiModelProperty(value = "Data de fechamento do chamado")
+    private String closingDate;
+
+    @ApiModelProperty(value = "Usuário que abriu o chamado")
     private String openBy;
+
+    @ApiModelProperty(value = "Usuário que fechou o chamado")
+    private String closeBy;
+
+    @ApiModelProperty(value = "Relato técnico ao finalizar o chamado")
+    private String technicalReport;
+
+    @ApiModelProperty(value = "Situação do chamado: 1 - Aberto; 2 - Pendente; 3 - Finalizado; 4 - Cancelado")
     private int status;
+
+    @ApiModelProperty(value = "0 - Ativo; 1 - Inativo")
+    private int active;
     
 }
