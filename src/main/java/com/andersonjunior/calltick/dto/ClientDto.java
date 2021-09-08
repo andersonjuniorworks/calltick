@@ -3,6 +3,7 @@ package com.andersonjunior.calltick.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Getter @Setter
 public class ClientDto implements Serializable {
 
-    private Integer id;
+    private Long id;
     private Integer type;
     @NotEmpty(message="Preenchimento obrigatório")
     private String cpfOrCnpj;
@@ -29,6 +30,7 @@ public class ClientDto implements Serializable {
     @NotEmpty(message="Preenchimento obrigatório")
     private String phoneNumberOne;
     private String phoneNumberTwo;
+    @Email(message="Email inválido")
     private String email;
     private Date registrationDate;
     

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface PaidRepository extends JpaRepository<Paid, Long> {
 
     List<Paid> findByDateOfPaymentBetween(Date startDate, Date endDate, Pageable pageable);
-    
     List<Paid> findByClient(Client client);
 
 }
