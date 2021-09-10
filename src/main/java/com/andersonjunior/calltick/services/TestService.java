@@ -64,7 +64,7 @@ public class TestService {
         calledRepo.saveAll(Arrays.asList(ca1, ca2, ca3));
 
         Paid p1 = new Paid(null, c1, new Date(), 150.00, new Date());
-        Paid p2 = new Paid(null, c3, new Date(), 400.00, new Date());
+        Paid p2 = new Paid(null, c2, new Date(), 400.00, new Date());
         paidRepo.saveAll(Arrays.asList(p1, p2));
 
     }
