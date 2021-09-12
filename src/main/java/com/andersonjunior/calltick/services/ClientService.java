@@ -75,15 +75,15 @@ public class ClientService {
         newObj.setType(obj.getType());
         newObj.setFullname(obj.getFullname());
         newObj.setNickname(obj.getNickname());
-        newObj.setZipcode(obj.getZipcode());
-        newObj.setZipcode(obj.getAdress());
-        newObj.setZipcode(obj.getHomeNumber());
-        newObj.setZipcode(obj.getComplement());
-        newObj.setZipcode(obj.getState());
-        newObj.setZipcode(obj.getCity());
-        newObj.setZipcode(obj.getPhoneNumberOne());
-        newObj.setZipcode(obj.getPhoneNumberTwo());
-        newObj.setZipcode(obj.getEmail());
+        newObj.setZipcode(obj.getZipcode());    
+        newObj.setAddress(obj.getAddress());
+        newObj.setHomeNumber(obj.getHomeNumber());
+        newObj.setComplement(obj.getComplement());
+        newObj.setState(obj.getState());
+        newObj.setCity(obj.getCity());
+        newObj.setPhoneNumberOne(obj.getPhoneNumberOne());
+        newObj.setPhoneNumberTwo(obj.getPhoneNumberTwo());
+        newObj.setEmail(obj.getEmail());
     }
 
 }
