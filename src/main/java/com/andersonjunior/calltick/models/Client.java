@@ -47,7 +47,7 @@ public class Client implements Serializable {
     private String zipcode;
 
     @ApiModelProperty(value = "Endereço")
-    private String adress;
+    private String address;
 
     @ApiModelProperty(value = "Número da residência/estabelecimento")
     private String homeNumber;
