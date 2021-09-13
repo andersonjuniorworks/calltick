@@ -62,7 +62,7 @@ public class ClientController {
     @CrossOrigin
     @ApiOperation(value = "Retorna clientes por nome completo")
     @GetMapping(value = "/fullname")
-    public ResponseEntity<List<Client>> findByFullname(@RequestParam(value = "filter") String fullname) {
+    public ResponseEntity<List<Client>> findByFullname(@RequestParam(value = "value") String fullname) {
         return new ResponseEntity<List<Client>>(clientService.findByFullname(fullname), HttpStatus.OK);
     }
 

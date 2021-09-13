@@ -39,7 +39,7 @@ public class ClientService {
     }
 
     public List<Client> findByFullname(String fullname) {
-        return clientRepo.findByFullname(fullname);
+        return clientRepo.findByFullnameContainingIgnoreCase(fullname);
     }
 
     @Transactional
