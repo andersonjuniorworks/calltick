@@ -39,7 +39,7 @@ public class SectorService {
     }
 
     public List<Sector> findByDescription(String description) {
-        return sectorRepo.findByDescription(description);
+        return sectorRepo.findByDescriptionContainingIgnoreCase(description);
     }
 
     @Transactional

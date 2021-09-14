@@ -38,8 +38,20 @@ public class ClientService {
         return count;
     }
 
+    public List<Client> findByDocument(String document) {
+        return clientRepo.findByDocument(document);
+    }
+
     public List<Client> findByFullname(String fullname) {
         return clientRepo.findByFullnameContainingIgnoreCase(fullname);
+    }
+
+    public List<Client> findByNickname(String nickname) {
+        return clientRepo.findByNicknameContainingIgnoreCase(nickname);
+    }
+
+    public List<Client> findByCity(String city) {
+        return clientRepo.findByCityIgnoreCase(city);
     }
 
     @Transactional
@@ -65,7 +77,7 @@ public class ClientService {
     }
 
     public Client fromDTO(ClientDto objDto) {
-        return new Client(objDto.getId(), objDto.getType(), objDto.getCpfOrCnpj(), objDto.getFullname(),
+        return new Client(objDto.getId(), objDto.getType(), objDto.getDocument(), objDto.getFullname(),
                 objDto.getNickname(), objDto.getZipcode(), objDto.getAddress(), objDto.getHomeNumber(),
                 objDto.getComplement(), objDto.getState(), objDto.getCity(), objDto.getPhoneNumberOne(),
                 objDto.getPhoneNumberTwo(), objDto.getEmail(), new Date());

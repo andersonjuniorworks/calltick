@@ -53,10 +53,13 @@ public class TestService {
         Sector s3 = new Sector(null, "Financeiro");
         sectorRepo.saveAll(Arrays.asList(s1,s2,s3));
 
-        Client c1 = new Client(null, ClientType.PESSOAFISICA.getCode(), "071.156.213-06", "Antonio Anderson Vieira do Nascimento Júnior", "Anderson Júnior", "63702-170", "Rua Manoel Balbino", "72", "Casa", "CE", "Crateús", "(88)99435-4507", "", "andersonjunior.tech@gmail.com", new Date());
-        Client c2 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "26.729.461/0001-93", "S & A Automação Comercial", "Saraiva Automação", "63700-000", "Rua Vereador José Veras", "1341", "Casa", "CE", "Crateús", "(88)99435-4507", "", "saraivaautomacao@gmail.com", new Date());
-        Client c3 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "37.616.795/0001-77", "Samuel de Souza Melo", "SA Informática", "63702-170", "Rua Manoel Balbino", "72", "Casa", "CE", "Crateús", "(88)99435-4507", "", "sainformatica@gmail.com", new Date());
-        clientRepo.saveAll(Arrays.asList(c1, c2, c3));
+        Client c1 = new Client(null, ClientType.PESSOAFISICA.getCode(), "07115621306", "Antonio Anderson Vieira do Nascimento Júnior", "Anderson Júnior", "63702-170", "Rua Manoel Balbino", "72", "Casa", "CE", "Crateús", "88994354507", "", "andersonjunior.tech@gmail.com", new Date());
+        Client c2 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "26729461000193", "S & A Automação Comercial", "Saraiva Automação", "63700-000", "Rua Vereador José Veras", "1341", "Casa", "CE", "Novo Oriente", "88994354507", "", "saraivaautomacao@gmail.com", new Date());
+        Client c3 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "37616795000177", "Samuel de Souza Melo", "SA Informática", "63702-170", "Rua Manoel Balbino", "72", "Casa", "CE", "Crateús", "88994354507", "", "sainformatica@gmail.com", new Date());
+        Client c4 = new Client(null, ClientType.PESSOAFISICA.getCode(), "07115621307", "Antonio Anderson Vieira do Nascimento Júnior", "Anderson Júnior", "63702-170", "Rua Manoel Balbino", "72", "Casa", "CE", "Crateús", "88994354507", "", "andersonjunior2.tech@gmail.com", new Date());
+        Client c5 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "26729461000190", "S & A Automação Comercial", "Saraiva Automação", "63700-000", "Rua Vereador José Veras", "1341", "Casa", "CE", "Novo Oriente", "88994354507", "", "saraivaautomacao2@gmail.com", new Date());
+        Client c6 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "37616795000175", "Samuel de Souza Melo", "SA Informática", "63702-170", "Rua Manoel Balbino", "72", "Casa", "CE", "Crateús", "88994354507", "", "sainformatica2@gmail.com", new Date());
+        clientRepo.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6));
 
         Called ca1 = new Called(null, c1, s1, "Erro ao finalizar a venda fiscal", "Cliente relatou erro ao finalizar venda com forma de pagamento Cartão de Crédito",u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);
         Called ca2 = new Called(null, c2, s2, "Dúvida na entrada de notas", "Cliente solicitou ajuda na entrada de notas manual", u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);

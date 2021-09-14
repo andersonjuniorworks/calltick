@@ -12,6 +12,7 @@ import com.andersonjunior.calltick.services.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ public class SectorController {
     @Autowired
     private SectorService service;
 
+    @CrossOrigin
     @ApiOperation(value = "Retorna um setor por código")
     @GetMapping(value = "/{id}")
     public ResponseEntity<Sector> findById(@PathVariable Integer id) {
@@ -39,6 +41,7 @@ public class SectorController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Retorna todos os setores")
     @GetMapping()
     public ResponseEntity<List<Sector>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
@@ -46,6 +49,7 @@ public class SectorController {
         return new ResponseEntity<List<Sector>>(service.findAll(page, size), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Retorna a quantidade de setores no banco")
     @GetMapping(value = "/count")
     public ResponseEntity<Long> countRegisters() {
@@ -53,12 +57,14 @@ public class SectorController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Retorna um setor por descrição")
     @GetMapping(value = "/description")
-    public ResponseEntity<List<Sector>> findSectorByDescription(@RequestParam(value = "filter") String description) {
+    public ResponseEntity<List<Sector>> findSectorByDescription(@RequestParam(value = "value") String description) {
         return new ResponseEntity<List<Sector>>(service.findByDescription(description), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Insere um setor")
     @PostMapping()
     public ResponseEntity<Void> insert(@Valid @RequestBody SectorDto objDto) {
@@ -68,6 +74,7 @@ public class SectorController {
         return ResponseEntity.created(uri).build();
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Editar um setor")
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody Sector sector, @PathVariable Integer id) {
@@ -76,6 +83,7 @@ public class SectorController {
         return ResponseEntity.noContent().build();
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Exclui um setor")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {

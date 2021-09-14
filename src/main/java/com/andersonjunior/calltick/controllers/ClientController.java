@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -48,6 +49,9 @@ public class ClientController {
     @GetMapping()
     public ResponseEntity<List<Client>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
+        Long count = clientService.count();
+        Double total = count.doubleValue() / size;
+        total = Math.ceil(total + 1) * 10;
         return new ResponseEntity<List<Client>>(clientService.findAll(page, size), HttpStatus.OK);
     }
 
@@ -60,10 +64,31 @@ public class ClientController {
     }
 
     @CrossOrigin
-    @ApiOperation(value = "Retorna clientes por nome completo")
+    @ApiOperation(value = "Retorna um cliente por CPF ou CNPJ")
+    @GetMapping(value = "/document")
+    public ResponseEntity<List<Client>> findByDocument(@RequestParam(value = "value") String document) {
+        return new ResponseEntity<List<Client>>(clientService.findByDocument(document), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Retorna clientes por nome completo ou razão social")
     @GetMapping(value = "/fullname")
     public ResponseEntity<List<Client>> findByFullname(@RequestParam(value = "value") String fullname) {
         return new ResponseEntity<List<Client>>(clientService.findByFullname(fullname), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Retorna clientes por apelido ou nome fantasia")
+    @GetMapping(value = "/nickname")
+    public ResponseEntity<List<Client>> findByNickname(@RequestParam(value = "value") String nickname) {
+        return new ResponseEntity<List<Client>>(clientService.findByNickname(nickname), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Retorna clientes por cidade")
+    @GetMapping(value = "/city")
+    public ResponseEntity<List<Client>> findByCity(@RequestParam(value = "value") String city) {
+        return new ResponseEntity<List<Client>>(clientService.findByCity(city), HttpStatus.OK);
     }
 
     @CrossOrigin

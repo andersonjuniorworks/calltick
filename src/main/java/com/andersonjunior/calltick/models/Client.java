@@ -35,7 +35,7 @@ public class Client implements Serializable {
 
     @ApiModelProperty(value = "CPF ou CNPJ do Cliente")
     @Column(unique = true)
-    private String cpfOrCnpj;
+    private String document;
 
     @ApiModelProperty(value = "Nome ou Razão Social")
     private String fullname;

@@ -17,7 +17,7 @@ public class ClientDto implements Serializable {
     private Long id;
     private Integer type;
     @NotEmpty(message="Preenchimento obrigatório")
-    private String cpfOrCnpj;
+    private String document;
     @NotEmpty(message="Preenchimento obrigatório")
     private String fullname;
     private String nickname;
