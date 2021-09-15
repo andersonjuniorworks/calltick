@@ -20,6 +20,7 @@ import com.andersonjunior.calltick.repositories.SectorRepository;
 import com.andersonjunior.calltick.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,12 +41,15 @@ public class TestService {
     @Autowired
     private PaidRepository paidRepo;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     public void instantiateTestDatabase() throws ParseException {
 
         SimpleDateFormat formatDate = new SimpleDateFormat();
 
-        User u1 = new User(null, "ADMINISTRADOR", "admin@admin.com", "printf@javadev", Profile.ADMINISTRADOR.getCode());
-        User u2 = new User(null, "ATENDIMENTO", "atendimento@admin.com", "printf@javadev", Profile.ADMINISTRADOR.getCode());
+        User u1 = new User(null, "ADMINISTRADOR", "admin@admin.com", encoder.encode("printf@javadev"), Profile.ADMINISTRADOR.getCode());
+        User u2 = new User(null, "ATENDIMENTO", "atendimento@admin.com", encoder.encode("printf@javadev"), Profile.ADMINISTRADOR.getCode());
         userRepo.saveAll(Arrays.asList(u1, u2));
         
         Sector s1 = new Sector(null, "Suporte Técnico");

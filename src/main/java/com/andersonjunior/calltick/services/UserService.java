@@ -13,45 +13,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserRepository clientRepo;
+    private UserRepository userRepo;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     public List<User> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return clientRepo.findAll(pageable).getContent();
+        return userRepo.findAll(pageable).getContent();
     }
 
-    public User find(Integer id) {
-        Optional<User> obj = clientRepo.findById(id);
+    public User find(Long id) {
+        Optional<User> obj = userRepo.findById(id);
         return obj.orElseThrow();
     }
 
+    public Optional<User> findByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
     public List<User> findByFullname(String fullname) {
-        return clientRepo.findByFullname(fullname);
+        return userRepo.findByFullnameContainingIgnoreCase(fullname);
     }
 
     @Transactional
     public User insert(User obj) {
         obj.setId(null);
-        return clientRepo.save(obj);
+        obj.setPassword(encoder.encode(obj.getPassword()));
+        return userRepo.save(obj);
     }
 
     @Transactional
     public User update(User obj) {
         User newObj = find(obj.getId());
         updateData(newObj, obj);
-        return clientRepo.save(newObj);
+        return userRepo.save(newObj);
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         find(id);
         try {
-            clientRepo.deleteById(id);
+            userRepo.deleteById(id);
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException("Não é possível excluir este usuário!");
         }

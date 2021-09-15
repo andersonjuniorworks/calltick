@@ -26,11 +26,10 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String fullname;
     @Column(unique = true)
     private String email;
-    @JsonIgnore
     private String password;
     private Integer profile;
 
