@@ -11,6 +11,7 @@ import com.andersonjunior.calltick.dto.CalledDto;
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Transfers;
+import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.models.enums.CalledStatus;
 import com.andersonjunior.calltick.repositories.CalledRepository;
 import com.andersonjunior.calltick.repositories.TransfersRespository;
@@ -38,6 +39,11 @@ public class CalledService {
     public List<Called> findAllCalls(Integer active, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return calledRepo.findByActive(active, pageable);
+    }
+
+    public List<Called> findByUser(User user, Integer status, Integer active, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return calledRepo.findByUserAndStatusAndActive(user, status, active, pageable);
     }
 
     public Long count() {

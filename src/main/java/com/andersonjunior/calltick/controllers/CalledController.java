@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import com.andersonjunior.calltick.dto.CalledDto;
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
+import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.services.CalledService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,17 @@ public class CalledController {
     public ResponseEntity<Long> countRegisters() {
         Long obj = service.count();
         return ResponseEntity.ok().body(obj);
+    }
+
+    @ApiOperation(value = "Retorna uma lista de chamados pelo status e situação cadastral")
+    @GetMapping(value = "/user", produces="application/json")
+    public ResponseEntity<List<Called>> findByUser(
+    @RequestParam(required = false) User user,
+    @RequestParam(required = false, defaultValue = "1") Integer status,
+    @RequestParam(required = false, defaultValue = "0") Integer active,
+    @RequestParam(required = false, defaultValue = "0") Integer page,
+    @RequestParam(required = false, defaultValue = "5") Integer size) {
+        return new ResponseEntity<List<Called>>(service.findByUser(user, status, active, page, size), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Retorna uma lista de chamados pelo status e situação cadastral")
