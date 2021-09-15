@@ -25,6 +25,7 @@ public class ClientDto implements Serializable {
     private String address;
     private String homeNumber;
     private String complement;
+    private String neighborhood;
     private String state;
     private String city;
     @NotEmpty(message="Preenchimento obrigatório")

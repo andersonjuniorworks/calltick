@@ -55,6 +55,9 @@ public class Client implements Serializable {
     @ApiModelProperty(value = "Complemento")
     private String complement;
 
+    @ApiModelProperty(value = "Bairro")
+    private String neighborhood;
+
     @ApiModelProperty(value = "Estado")
     private String state;
 

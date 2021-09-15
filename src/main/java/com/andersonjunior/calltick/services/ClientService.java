@@ -79,7 +79,7 @@ public class ClientService {
     public Client fromDTO(ClientDto objDto) {
         return new Client(objDto.getId(), objDto.getType(), objDto.getDocument(), objDto.getFullname(),
                 objDto.getNickname(), objDto.getZipcode(), objDto.getAddress(), objDto.getHomeNumber(),
-                objDto.getComplement(), objDto.getState(), objDto.getCity(), objDto.getPhoneNumberOne(),
+                objDto.getComplement(), objDto.getNeighborhood(), objDto.getState(), objDto.getCity(), objDto.getPhoneNumberOne(),
                 objDto.getPhoneNumberTwo(), objDto.getEmail(), new Date());
     }
 
@@ -91,6 +91,7 @@ public class ClientService {
         newObj.setAddress(obj.getAddress());
         newObj.setHomeNumber(obj.getHomeNumber());
         newObj.setComplement(obj.getComplement());
+        newObj.setNeighborhood(obj.getNeighborhood());
         newObj.setState(obj.getState());
         newObj.setCity(obj.getCity());
         newObj.setPhoneNumberOne(obj.getPhoneNumberOne());

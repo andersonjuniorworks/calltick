@@ -49,9 +49,9 @@ public class ClientController {
     @GetMapping()
     public ResponseEntity<List<Client>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
-        Long count = clientService.count();
+ /*        Long count = clientService.count();
         Double total = count.doubleValue() / size;
-        total = Math.ceil(total + 1) * 10;
+        total = Math.ceil(total + 1) * 10; */
         return new ResponseEntity<List<Client>>(clientService.findAll(page, size), HttpStatus.OK);
     }
 
