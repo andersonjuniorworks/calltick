@@ -30,7 +30,6 @@ public class Called implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "Cliente vinculado ao chamado")
-    @JsonIgnore
     @ManyToOne
     private Client client;
 

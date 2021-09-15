@@ -30,6 +30,7 @@ public class User implements Serializable {
     private String fullname;
     @Column(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
     private Integer profile;
 
