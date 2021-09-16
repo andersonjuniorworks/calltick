@@ -74,12 +74,11 @@ public class CalledService {
 
     @Transactional
     public Called insert(Called obj) {
-
         SimpleDateFormat formatOpeningDate = new SimpleDateFormat();
-
         obj.setId(null);
         obj.setOpeningDate(formatOpeningDate.format(new Date()));
-
+        obj.setStatus(CalledStatus.ABERTO.getCode());
+        obj.setActive(0);
         return calledRepo.save(obj);
     }
 

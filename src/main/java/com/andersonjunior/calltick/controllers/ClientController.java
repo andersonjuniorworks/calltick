@@ -10,6 +10,7 @@ import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.services.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,10 +49,18 @@ public class ClientController {
     @GetMapping()
     public ResponseEntity<List<Client>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
- /*        Long count = clientService.count();
+
+        Long count = clientService.count();
         Double total = count.doubleValue() / size;
-        total = Math.ceil(total + 1) * 10; */
-        return new ResponseEntity<List<Client>>(clientService.findAll(page, size), HttpStatus.OK);
+        total = Math.ceil(total + 1) * 10;
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("x-total-count", total.toString());
+
+        List<Client> list = clientService.findAll(page, size);
+
+        return ResponseEntity.ok().headers(responseHeaders).body(list);
+
     }
 
     @CrossOrigin

@@ -34,6 +34,11 @@ public class UserService {
         Optional<User> obj = userRepo.findById(id);
         return obj.orElseThrow();
     }
+    
+    public Long count() {
+        Long count = userRepo.count();
+        return count;
+    }
 
     public Optional<User> findByEmail(String email) {
         return userRepo.findByEmail(email);

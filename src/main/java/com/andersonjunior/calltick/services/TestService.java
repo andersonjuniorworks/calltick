@@ -48,9 +48,10 @@ public class TestService {
 
         SimpleDateFormat formatDate = new SimpleDateFormat();
 
-        User u1 = new User(null, "ADMINISTRADOR", "admin@admin.com", encoder.encode("printf@javadev"), Profile.ADMINISTRADOR.getCode());
-        User u2 = new User(null, "ATENDIMENTO", "atendimento@admin.com", encoder.encode("printf@javadev"), Profile.ADMINISTRADOR.getCode());
-        userRepo.saveAll(Arrays.asList(u1, u2));
+        User u1 = new User(null, "Administrador", "admin@admin.com", encoder.encode("printf@javadev"), Profile.ADMINISTRADOR.getCode());
+        User u2 = new User(null, "Ana Vitória", "vitoria@gmail.com", encoder.encode("123"), Profile.ATENDENTE.getCode());
+        User u3 = new User(null, "Gonçalo Neto", "neto@gmail.com", encoder.encode("123"), Profile.TECNICO.getCode());
+        userRepo.saveAll(Arrays.asList(u1, u2, u3));
         
         Sector s1 = new Sector(null, "Suporte Técnico");
         Sector s2 = new Sector(null, "Suporte Operacional");
@@ -71,9 +72,9 @@ public class TestService {
         Client c12 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "21915226000192", "Sophia e Giovanni Comercio de Bebidas Ltda", "Alvorada Bebidas", "60545035", "Rua Raimundo Pinheiro", "713", "Casa", "Centro", "Ceará", "Fortaleza", "85998549172", "8526304854", "presidencia@sophiaegiovannicomerciodebebidasltda.com.br", new Date());
         clientRepo.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12));
 
-        Called ca1 = new Called(null, c1, s1, "Erro ao finalizar a venda fiscal", "Cliente relatou erro ao finalizar venda com forma de pagamento Cartão de Crédito",u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);
-        Called ca2 = new Called(null, c2, s2, "Dúvida na entrada de notas", "Cliente solicitou ajuda na entrada de notas manual", u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);
-        Called ca3 = new Called(null, c2, s3, "Atualização de Boleto", "Atualizar boleto do cliente para nova data", u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.PENDENTE.getCode(), 0);
+        Called ca1 = new Called(null, c1, s1, "Erro ao finalizar a venda fiscal", "Cliente relatou erro ao finalizar venda com forma de pagamento Cartão de Crédito",u3, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);
+        Called ca2 = new Called(null, c2, s2, "Dúvida na entrada de notas", "Cliente solicitou ajuda na entrada de notas manual", u3, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);
+        Called ca3 = new Called(null, c2, s3, "Atualização de Boleto", "Atualizar boleto do cliente para nova data", u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.FINALIZADO.getCode(), 0);
         calledRepo.saveAll(Arrays.asList(ca1, ca2, ca3));
 
         Paid p1 = new Paid(null, c1, new Date(), 150.00, new Date());

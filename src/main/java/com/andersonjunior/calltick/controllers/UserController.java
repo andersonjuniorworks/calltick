@@ -53,11 +53,16 @@ public class UserController {
     @GetMapping()
     public ResponseEntity<List<User>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
- /*        Long count = userService.count();
-        Double total = count.doubleValue() / size;
-        total = Math.ceil(total + 1) * 10; */
-        
         return new ResponseEntity<List<User>>(userService.findAll(page, size), HttpStatus.OK);
+    }
+
+    
+    @CrossOrigin
+    @ApiOperation(value = "Retorna a quantidade de usuários no banco")
+    @GetMapping(value = "/count")
+    public ResponseEntity<Long> countRegisters() {
+        Long obj = userService.count();
+        return ResponseEntity.ok().body(obj);
     }
 
     @CrossOrigin
@@ -88,7 +93,7 @@ public class UserController {
     @GetMapping("/login")
     public ResponseEntity<Boolean> login(@RequestParam String email, @RequestParam String password) {
         Optional<User> optUser = userService.findByEmail(email);
-        if(optUser.isEmpty()) {
+        if (optUser.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
         }
         boolean valid = encoder.matches(password, optUser.get().getPassword());
