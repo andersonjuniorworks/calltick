@@ -18,6 +18,7 @@ public class ClientDto implements Serializable {
     private Integer type;
     @NotEmpty(message="Preenchimento obrigatório")
     private String document;
+    private String stateRegistration;
     @NotEmpty(message="Preenchimento obrigatório")
     private String fullname;
     private String nickname;

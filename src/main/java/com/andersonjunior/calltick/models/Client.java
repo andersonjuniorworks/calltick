@@ -37,6 +37,9 @@ public class Client implements Serializable {
     @Column(unique = true)
     private String document;
 
+    @ApiModelProperty(value = "Inscrição Estadual do Cliente")
+    private String stateRegistration;
+
     @ApiModelProperty(value = "Nome ou Razão Social")
     private String fullname;
 

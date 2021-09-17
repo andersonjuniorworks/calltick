@@ -77,14 +77,14 @@ public class ClientService {
     }
 
     public Client fromDTO(ClientDto objDto) {
-        return new Client(objDto.getId(), objDto.getType(), objDto.getDocument(), objDto.getFullname(),
+        return new Client(objDto.getId(), objDto.getType(), objDto.getDocument(), objDto.getStateRegistration(), objDto.getFullname(),
                 objDto.getNickname(), objDto.getZipcode(), objDto.getAddress(), objDto.getHomeNumber(),
                 objDto.getComplement(), objDto.getNeighborhood(), objDto.getState(), objDto.getCity(), objDto.getPhoneNumberOne(),
                 objDto.getPhoneNumberTwo(), objDto.getEmail(), new Date());
     }
 
     private void updateData(Client newObj, Client obj) {
-        newObj.setType(obj.getType());
+        newObj.setStateRegistration(obj.getStateRegistration());
         newObj.setFullname(obj.getFullname());
         newObj.setNickname(obj.getNickname());
         newObj.setZipcode(obj.getZipcode());    
