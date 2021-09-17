@@ -74,7 +74,7 @@ public class TestService {
 
         Called ca1 = new Called(null, c1, s1, "Erro ao finalizar a venda fiscal", "Cliente relatou erro ao finalizar venda com forma de pagamento Cartão de Crédito",u3, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);
         Called ca2 = new Called(null, c2, s2, "Dúvida na entrada de notas", "Cliente solicitou ajuda na entrada de notas manual", u3, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);
-        Called ca3 = new Called(null, c2, s3, "Atualização de Boleto", "Atualizar boleto do cliente para nova data", u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.FINALIZADO.getCode(), 0);
+        Called ca3 = new Called(null, c2, s3, "Atualização de Boleto", "Atualizar boleto do cliente para nova data", u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0);
         calledRepo.saveAll(Arrays.asList(ca1, ca2, ca3));
 
         Paid p1 = new Paid(null, c1, new Date(), 150.00, new Date());
