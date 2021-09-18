@@ -6,10 +6,6 @@ import com.andersonjunior.calltick.models.Sector;
 
 import org.hibernate.validator.constraints.Length;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter @Setter
 public class SectorDto implements Serializable {
 
     private Integer id;
@@ -23,6 +19,22 @@ public class SectorDto implements Serializable {
 	public SectorDto(Sector obj) {
 		id = obj.getId();
 		description = obj.getDescription();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
     
 }
