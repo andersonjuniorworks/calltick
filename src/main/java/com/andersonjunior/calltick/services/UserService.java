@@ -32,9 +32,10 @@ public class UserService {
 
     public User find(Long id) {
         Optional<User> obj = userRepo.findById(id);
+        obj.get().getPassword();
         return obj.orElseThrow();
     }
-    
+
     public Long count() {
         Long count = userRepo.count();
         return count;
@@ -57,28 +58,37 @@ public class UserService {
 
     @Transactional
     public User update(User obj) {
-        User newObj = find(obj.getId());
-        updateData(newObj, obj);
-        return userRepo.save(newObj);
+        if (obj.getId() != 1) {
+            User newObj = find(obj.getId());
+            updateData(newObj, obj);
+            return userRepo.save(newObj);
+        } else {
+            throw new DataIntegrityViolationException("Não é possível editar o usuário Administrador!");
+        }
     }
 
     public void delete(Long id) {
         find(id);
-        try {
-            userRepo.deleteById(id);
-        } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Não é possível excluir este usuário!");
+        if (id != 1) {
+            try {
+                userRepo.deleteById(id);
+            } catch (DataIntegrityViolationException e) {
+                throw new DataIntegrityViolationException("Não é possível excluir usuário com chamados vinculados!");
+            }
+        } else {
+            throw new DataIntegrityViolationException("Não é possível excluir o usuário administrador!");
         }
     }
 
     public User fromDTO(UserDto objDto) {
-        return new User(objDto.getId(), objDto.getFullname(), objDto.getEmail(), null, null);
+        return new User(objDto.getId(), objDto.getFullname(), objDto.getEmail(), objDto.getPassword(),
+                objDto.getProfile());
     }
 
     private void updateData(User newObj, User obj) {
         newObj.setFullname(obj.getFullname());
         newObj.setEmail(obj.getEmail());
-        newObj.setPassword(obj.getPassword());
+        newObj.setPassword(encoder.encode(obj.getPassword()));
         newObj.setProfile(obj.getProfile());
     }
 
