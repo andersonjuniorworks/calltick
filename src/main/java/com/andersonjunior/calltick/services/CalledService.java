@@ -114,15 +114,15 @@ public class CalledService {
     @Transactional
     public Called transfer(Called obj) {
 
-        String teste = obj.getUser().getEmail();
+        String newUser = obj.getUser().getEmail();
 
         Transfers transfer = new Transfers();
         Called newObj = findById(obj.getId());
 
         transfer.setId(null);
         transfer.setCalled(obj);
-        transfer.setResponsible(teste);
-        transfer.setNewResponsible(newObj.getUser().getEmail());
+        transfer.setResponsible(newObj.getUser().getEmail());
+        transfer.setNewResponsible(newUser);
         transfer.setDateOfTransfer(new Date());
 
         transfersRespo.save(transfer);
