@@ -58,7 +58,7 @@ public class CalledService {
 
     public List<Called> findAllCalls(Integer status, Integer active, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findByStatusAndActive(status, active, pageable);
+        return calledRepo.findByStatusAndActiveOrderByIdDesc(status, active, pageable);
     }
 
     public List<Called> findByClient(Client client, int status, Integer page, Integer size) {
