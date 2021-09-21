@@ -46,6 +46,10 @@ public class CalledService {
         return calledRepo.findByUserAndStatusAndActive(user, status, active, pageable);
     }
 
+    public Integer countByUser(User user, Integer status) {
+        return calledRepo.findByUserAndStatus(user, status).size();
+    }
+
     public Long count() {
         Long count = calledRepo.count();
         return count;

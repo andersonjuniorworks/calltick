@@ -1,9 +1,5 @@
 package com.andersonjunior.calltick.controllers;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Key;
 import com.andersonjunior.calltick.services.KeyService;
 

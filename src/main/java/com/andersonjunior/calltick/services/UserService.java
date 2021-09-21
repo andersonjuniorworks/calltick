@@ -88,7 +88,6 @@ public class UserService {
     private void updateData(User newObj, User obj) {
         newObj.setFullname(obj.getFullname());
         newObj.setEmail(obj.getEmail());
-        newObj.setPassword(encoder.encode(obj.getPassword()));
         newObj.setProfile(obj.getProfile());
     }
 

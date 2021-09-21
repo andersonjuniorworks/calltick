@@ -25,4 +25,6 @@ public interface CalledRepository extends JpaRepository<Called, Long>{
 
     List<Called> findByStatusAndActiveOrderByIdDesc(Integer status, Integer active, Pageable pageable);
 
+    List<Called> findByUserAndStatus(User user, Integer status);
+
 }

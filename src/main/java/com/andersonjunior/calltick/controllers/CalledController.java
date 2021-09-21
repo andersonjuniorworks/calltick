@@ -65,6 +65,17 @@ public class CalledController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Retorna a quantidade de chamados no banco")
+    @GetMapping(value = "/countByUser")
+    public ResponseEntity<Integer> countRegistersByUser(
+        @RequestParam(required = true) User user,
+        @RequestParam(required = false, defaultValue = "1") Integer status
+    ) {
+        Integer obj = service.countByUser(user, status);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Retorna uma lista de chamados pelo status e situação cadastral")
     @GetMapping(value = "/user", produces="application/json")
     public ResponseEntity<List<Called>> findByUser(
