@@ -1,11 +1,5 @@
 package com.andersonjunior.calltick;
 
-import com.andersonjunior.calltick.models.User;
-import com.andersonjunior.calltick.models.enums.Profile;
-import com.andersonjunior.calltick.repositories.UserRepository;
-import com.andersonjunior.calltick.services.UserService;
-
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
