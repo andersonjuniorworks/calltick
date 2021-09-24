@@ -136,13 +136,14 @@ public class CalledService {
     }
 
     public Called fromDTO(CalledDto objDto) {
-        return new Called(objDto.getId(), objDto.getClient(), objDto.getSector(), objDto.getSubject(),
+        return new Called(objDto.getId(), objDto.getClient(), objDto.getTypeService(), objDto.getSector(), objDto.getSubject(),
                 objDto.getDescription(), objDto.getUser(), objDto.getOpeningDate(), objDto.getClosingDate(),
                 objDto.getOpenBy(), objDto.getCloseBy(), objDto.getTechnicalReport(), objDto.getStatus(), objDto.getActive());
     }
 
     private void updateData(Called newObj, Called obj) {
         newObj.setClient(obj.getClient());
+        newObj.setTypeService(obj.getTypeService());
         newObj.setSubject(obj.getSubject());
         newObj.setDescription(obj.getDescription());
         newObj.setSector(obj.getSector());

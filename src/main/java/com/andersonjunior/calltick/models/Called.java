@@ -31,6 +31,9 @@ public class Called implements Serializable {
     @ManyToOne
     private Client client;
 
+    @ApiModelProperty(value = "Tipo de Atendimento: 1 - Interno; 2 - Externo; 3 - Remoto")
+    private int typeService;
+
     @ApiModelProperty(value = "Setor do chamado")
     @OneToOne
     private Sector sector;

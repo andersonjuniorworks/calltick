@@ -80,7 +80,7 @@ public class ClientService {
         return new Client(objDto.getId(), objDto.getType(), objDto.getDocument(), objDto.getStateRegistration(), objDto.getFullname(),
                 objDto.getNickname(), objDto.getZipcode(), objDto.getAddress(), objDto.getHomeNumber(),
                 objDto.getComplement(), objDto.getNeighborhood(), objDto.getState(), objDto.getCity(), objDto.getPhoneNumberOne(),
-                objDto.getPhoneNumberTwo(), objDto.getEmail(), new Date());
+                objDto.getPhoneNumberTwo(), objDto.getEmail(), objDto.getContract(), new Date());
     }
 
     private void updateData(Client newObj, Client obj) {
@@ -97,6 +97,7 @@ public class ClientService {
         newObj.setPhoneNumberOne(obj.getPhoneNumberOne());
         newObj.setPhoneNumberTwo(obj.getPhoneNumberTwo());
         newObj.setEmail(obj.getEmail());
+        newObj.setContract(obj.getContract());
     }
 
 }
