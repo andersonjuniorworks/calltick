@@ -44,6 +44,10 @@
 				</textElement>
 				<text><![CDATA[Relatório de Clientes]]></text>
 			</staticText>
+			<image>
+				<reportElement x="9" y="8" width="50" height="50" uuid="3292de92-0029-4dfa-9718-c4a4d2daf940"/>
+				<imageExpression><![CDATA["src/main/resources/static/img/logo.svg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -59,7 +63,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<graphicElement>
-					<pen lineWidth="1.0" lineColor="#F2F3FF"/>
+					<pen lineWidth="1.0" lineColor="#DBDEFF"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
@@ -97,7 +101,7 @@ $F{document}.substring(12, 14)) :
  ($F{document}.substring(0, 3) + "." + 
  $F{document}.substring(3, 6) + "." + 
  $F{document}.substring(6, 9) + "-" + 
- $F{document}.substring(9, 11)) )  ]]></textFieldExpression>
+ $F{document}.substring(9, 11)) )]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="140" y="12" width="404" height="20" uuid="48482316-69a5-4b0e-9e85-b4ae3bbf65d2"/>
@@ -254,7 +258,7 @@ $F{document}.substring(12, 14)) :
  $F{phoneNumberOne}.substring(7, 11)) :
  ("(" +$F{phoneNumberOne}.substring(0, 2) + ")" + 
  $F{phoneNumberOne}.substring(2, 6) + "-" + 
- $F{phoneNumberOne}.substring(6, 10) ) )  ]]></textFieldExpression>
+ $F{phoneNumberOne}.substring(6, 10) ) )]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="365" y="94" width="60" height="20" uuid="f1654da6-64ee-4de3-ab1c-925fa66c2ff7">
@@ -276,20 +280,20 @@ $F{document}.substring(12, 14)) :
 				</textElement>
 				<text><![CDATA[Contato:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="613" y="94" width="124" height="20" uuid="9942fd46-7fe6-4324-a96d-7ed7a2f11924">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" markup="html">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[( $F{phoneNumberTwo}.length() == 11 ?
+				<textFieldExpression><![CDATA[( $F{phoneNumberTwo}.length() == 11 && $F{phoneNumberTwo} != null ?
  ("(" +$F{phoneNumberTwo}.substring(0, 2) + ")" + 
  $F{phoneNumberTwo}.substring(2, 7) + "-" + 
  $F{phoneNumberTwo}.substring(7, 11)) :
  ("(" +$F{phoneNumberTwo}.substring(0, 2) + ")" + 
  $F{phoneNumberTwo}.substring(2, 6) + "-" + 
- $F{phoneNumberTwo}.substring(6, 10) ) )]]></textFieldExpression>
+ $F{phoneNumberTwo}.substring(6, 10)) )]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

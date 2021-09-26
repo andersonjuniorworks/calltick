@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.sf.jasperreports.engine.JRException;
@@ -34,6 +35,25 @@ public class ReportController {
     public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findAllOne());
+        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/static/reports/client_report.jrxml"));
+       
+        HashMap<String, Object> map = new HashMap<>();
+        JasperPrint report = JasperFillManager.fillReport(compileReport, map, beanCollectionDataSource);
+        //JasperExportManager.exportReportToPdfFile(report, "clientes.pdf");
+        byte[] data = JasperExportManager.exportReportToPdf(report);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=clientes.pdf");
+
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
+
+    }
+
+    @CrossOrigin
+    @GetMapping("/clientReport/city")
+    public ResponseEntity<byte[]> clientReportByCity(@RequestParam(value = "value") String city) throws Exception, JRException {
+
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByCity(city));
         JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/static/reports/client_report.jrxml"));
        
         HashMap<String, Object> map = new HashMap<>();
