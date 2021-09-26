@@ -1,6 +1,9 @@
 package com.andersonjunior.calltick.controllers;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -27,6 +30,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 
 @Api(value = "API Rest")
 @RestController

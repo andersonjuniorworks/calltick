@@ -23,6 +23,10 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepo;
 
+    public List<Client> findAllOne() {
+        return clientRepo.findAll();
+    }
+
     public List<Client> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return clientRepo.findAll(pageable).getContent();
