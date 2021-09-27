@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 
 import com.andersonjunior.calltick.dto.ClientDto;
 import com.andersonjunior.calltick.models.Client;
+import com.andersonjunior.calltick.models.Contract;
 import com.andersonjunior.calltick.repositories.ClientRepository;
+import com.andersonjunior.calltick.repositories.ContractRepository;
 import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepo;
+
+    @Autowired
+    private ContractRepository contractRepo;
 
     public List<Client> findAllOne() {
         return clientRepo.findAll();
@@ -56,6 +61,10 @@ public class ClientService {
 
     public List<Client> findByCity(String city) {
         return clientRepo.findByCityIgnoreCase(city);
+    }
+
+    public List<Client> findByContract(Contract contract) {
+        return clientRepo.findByContract(contract);
     }
 
     @Transactional
