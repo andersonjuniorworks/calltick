@@ -1,11 +1,11 @@
 package com.andersonjunior.calltick.controllers;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import com.andersonjunior.calltick.models.Contract;
 import com.andersonjunior.calltick.services.ClientService;
-import com.andersonjunior.calltick.services.ContractService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -26,28 +26,24 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/clientReport/")
 public class ReportController {
 
     @Autowired
     private ClientService clientService;
 
-    @Autowired
-    private ContractService contractService;
-
     @CrossOrigin
-    @GetMapping("/clientReport")
-    public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
+    @GetMapping()
+    public ResponseEntity<byte[]> generatePdf() throws FileNotFoundException, JRException {
 
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findAllOne());
-        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/static/reports/client_report.jrxml"));
+        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("C:/Calltick/reports/client_report.jrxml"));
        
         HashMap<String, Object> map = new HashMap<>();
         map.put("filter", "TODOS");
         map.put("filterValue", "NENHUM");
         map.put("registers", clientService.count());
         JasperPrint report = JasperFillManager.fillReport(compileReport, map, beanCollectionDataSource);
-        //JasperExportManager.exportReportToPdfFile(report, "clientes.pdf");
         byte[] data = JasperExportManager.exportReportToPdf(report);
 
         HttpHeaders headers = new HttpHeaders();
@@ -58,20 +54,19 @@ public class ReportController {
     }
 
     @CrossOrigin
-    @GetMapping("/clientReport/city")
+    @GetMapping("city")
     public ResponseEntity<byte[]> clientReportByCity(@RequestParam(value = "value") String city) throws Exception, JRException {
 
         Long registers = (long) clientService.findByCity(city).size();
 
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByCity(city));
-        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/static/reports/client_report.jrxml"));
+        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("C:/Calltick/reports/client_report.jrxml"));
        
         HashMap<String, Object> map = new HashMap<>();
         map.put("filter", "Cidade");
         map.put("filterValue", city);
         map.put("registers", registers);
         JasperPrint report = JasperFillManager.fillReport(compileReport, map, beanCollectionDataSource);
-        //JasperExportManager.exportReportToPdfFile(report, "clientes.pdf");
         byte[] data = JasperExportManager.exportReportToPdf(report);
 
         HttpHeaders headers = new HttpHeaders();
@@ -82,13 +77,13 @@ public class ReportController {
     }
 
     @CrossOrigin
-    @GetMapping("/clientReport/contract")
+    @GetMapping("contract")
     public ResponseEntity<byte[]> clientReportByContract(@RequestParam(value = "value") Contract contract) throws Exception, JRException {
 
         Long registers = (long) clientService.findByContract(contract).size();
 
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByContract(contract));
-        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/static/reports/client_report.jrxml"));
+        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("C:/Calltick/reports/client_report.jrxml"));
        
         HashMap<String, Object> map = new HashMap<>();
         map.put("filter", "Contrato");

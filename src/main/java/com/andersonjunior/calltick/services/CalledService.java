@@ -41,6 +41,11 @@ public class CalledService {
         return calledRepo.findByActive(active, pageable);
     }
 
+    public List<Called> findCalls(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return calledRepo.findCalls(pageable);
+    }
+
     public List<Called> findByUser(User user, Integer status, Integer active, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return calledRepo.findByUserAndStatusAndActive(user, status, active, pageable);

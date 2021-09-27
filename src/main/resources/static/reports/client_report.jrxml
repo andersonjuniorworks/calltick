@@ -49,7 +49,7 @@
 			</staticText>
 			<image>
 				<reportElement x="9" y="8" width="50" height="50" uuid="3292de92-0029-4dfa-9718-c4a4d2daf940"/>
-				<imageExpression><![CDATA["src/main/resources/static/img/logo.svg"]]></imageExpression>
+				<imageExpression><![CDATA["C:/Calltick/images/logo.svg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="10" y="80" width="70" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="8c343024-56b6-49b5-9d76-8fa06b332c70"/>

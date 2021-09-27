@@ -76,6 +76,15 @@ public class CalledController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Retorna uma lista de chamados ordenadas por ID")
+    @GetMapping(value = "/ordained", produces="application/json")
+    public ResponseEntity<List<Called>> findAllCalls(
+    @RequestParam(required = false, defaultValue = "0") Integer page,
+    @RequestParam(required = false, defaultValue = "5") Integer size) {
+        return new ResponseEntity<List<Called>>(service.findCalls(page, size), HttpStatus.OK);
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Retorna uma lista de chamados pelo status e situação cadastral")
     @GetMapping(value = "/user", produces="application/json")
     public ResponseEntity<List<Called>> findByUser(
