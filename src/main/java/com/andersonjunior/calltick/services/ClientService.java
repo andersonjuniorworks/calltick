@@ -67,6 +67,10 @@ public class ClientService {
         return clientRepo.findByContract(contract);
     }
 
+    public List<Client> findByCityAndContract(String city, Contract contract) {
+        return clientRepo.findByCityAndContract(city, contract);
+    }
+
     @Transactional
     public Client insert(Client obj) {
         obj.setId(null);

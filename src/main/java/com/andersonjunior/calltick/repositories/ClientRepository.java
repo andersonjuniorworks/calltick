@@ -1,7 +1,6 @@
 package com.andersonjunior.calltick.repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Contract;
@@ -21,5 +20,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     List<Client> findByCityIgnoreCase(String city);
 
     List<Client> findByContract(Contract contract);
+
+    List<Client> findByCityAndContract(String city, Contract contract);
 
 }

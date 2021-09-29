@@ -98,5 +98,28 @@ public class ReportController {
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
 
     }
+
+    @CrossOrigin
+    @GetMapping("filter")
+    public ResponseEntity<byte[]> clientReportByCityAndContract(@RequestParam(value = "city") String city, @RequestParam(value = "contract") Contract contract) throws Exception, JRException {
+
+        Long registers = (long) clientService.findByCityAndContract(city, contract).size();
+
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByCityAndContract(city, contract));
+        JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("C:/Calltick/reports/client_report.jrxml"));
+       
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("filter", "Cidade e Contrato");
+        map.put("filterValue", city + " e " + contract.getDescription());
+        map.put("registers", registers);
+        JasperPrint report = JasperFillManager.fillReport(compileReport, map, beanCollectionDataSource);
+        byte[] data = JasperExportManager.exportReportToPdf(report);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=clientes_"+city+"_"+contract.getDescription().toLowerCase()+".pdf");
+
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
+
+    }
     
 }
