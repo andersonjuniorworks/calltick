@@ -59,35 +59,35 @@
 				<text><![CDATA[Filtrado por:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="80" width="120" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="0eb207a8-e92a-4acd-852d-3ab72c2bfa59"/>
+				<reportElement x="81" y="80" width="149" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="0eb207a8-e92a-4acd-852d-3ab72c2bfa59"/>
 				<textElement verticalAlignment="Middle" markup="html">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{filter}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="210" y="80" width="80" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="4c629705-5d25-4acd-9b60-cd08be4dc4da"/>
+				<reportElement x="239" y="80" width="80" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="4c629705-5d25-4acd-9b60-cd08be4dc4da"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Valor do Filtro:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="291" y="80" width="120" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="e9c97f9b-086a-4a72-8667-7fe163124dad"/>
+				<reportElement x="320" y="80" width="170" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="e9c97f9b-086a-4a72-8667-7fe163124dad"/>
 				<textElement verticalAlignment="Middle" markup="html">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{filterValue}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="512" y="80" width="120" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="7ff21231-cc8b-498d-a9df-71f281607579"/>
+				<reportElement x="590" y="80" width="120" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="7ff21231-cc8b-498d-a9df-71f281607579"/>
 				<textElement verticalAlignment="Middle" markup="html">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{registers}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="420" y="80" width="90" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="9ace5b0c-ecfd-4c72-a60d-50e40924e110"/>
+				<reportElement x="498" y="80" width="90" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="9ace5b0c-ecfd-4c72-a60d-50e40924e110"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 					<font size="12"/>
 				</textElement>
