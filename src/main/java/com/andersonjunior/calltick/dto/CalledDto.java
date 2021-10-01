@@ -1,6 +1,7 @@
 package com.andersonjunior.calltick.dto;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Sector;
@@ -29,5 +30,6 @@ public class CalledDto implements Serializable {
     private String technicalReport;
     private int status;
     private int active;
+    private Date createdAt;
   
 }

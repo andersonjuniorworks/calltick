@@ -1,6 +1,7 @@
 package com.andersonjunior.calltick.controllers;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,6 +9,7 @@ import javax.validation.Valid;
 import com.andersonjunior.calltick.dto.CalledDto;
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
+import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.services.CalledService;
 
@@ -97,6 +99,30 @@ public class CalledController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Retorna uma lista de chamados pelo por setor")
+    @GetMapping(value = "/sector", produces="application/json")
+    public ResponseEntity<List<Called>> findBySector(
+    @RequestParam(required = false) Sector sector,
+    @RequestParam(required = false, defaultValue = "1") Integer status,
+    @RequestParam(required = false, defaultValue = "0") Integer page,
+    @RequestParam(required = false, defaultValue = "5") Integer size) {
+        return new ResponseEntity<List<Called>>(service.findBySector(sector, status, page, size), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Retorna uma lista de chamados pelo por filtro")
+    @GetMapping(value = "/param", produces="application/json")
+    public ResponseEntity<List<Called>> findByParam(
+    @RequestParam(required = false) Client client,
+    @RequestParam(required = false) User user,
+    @RequestParam(required = false) Sector sector,
+    @RequestParam(required = false, defaultValue = "1") Integer status,
+    @RequestParam(required = false, defaultValue = "0") Integer page,
+    @RequestParam(required = false, defaultValue = "5") Integer size) {
+        return new ResponseEntity<List<Called>>(service.findByParams(client, user, sector, status, page, size), HttpStatus.OK);
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Retorna uma lista de chamados pelo status e situação cadastral")
     @GetMapping(value = "/all", produces="application/json")
     public ResponseEntity<List<Called>> findByStatus(
@@ -111,8 +137,8 @@ public class CalledController {
     @ApiOperation(value = "Retorna uma lista de chamados por periodo")
     @GetMapping(value = "/period", produces="application/json")
     public ResponseEntity<List<Called>> findByPeriod(
-    @RequestParam(required = true) String startDate,
-    @RequestParam(required = true) String endDate,
+    @RequestParam(required = true) Date startDate,
+    @RequestParam(required = true) Date endDate,
     @RequestParam(required = false, defaultValue = "0") Integer page,
     @RequestParam(required = false, defaultValue = "5") Integer size) {
         return new ResponseEntity<List<Called>>(service.findByPeriod(startDate, endDate, page, size), HttpStatus.OK);

@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import com.andersonjunior.calltick.dto.CalledDto;
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
+import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.Transfers;
 import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.models.enums.CalledStatus;
@@ -75,10 +76,20 @@ public class CalledService {
         return calledRepo.findByClient(client, status, pageable);
     }
 
-    public List<Called> findByPeriod(String startDate, String endDate, Integer page, Integer size) {
+    public List<Called> findByParams(Client client, User user, Sector sector, int status, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return calledRepo.findByClientAndUserAndSectorAndStatus(client, user, sector, status, pageable);
+    }
+
+    public List<Called> findBySector(Sector sector, int status, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return calledRepo.findBySectorAndStatus(sector, status, pageable);
+    }
+
+    public List<Called> findByPeriod(Date startDate, Date endDate, Integer page, Integer size) {
 
         Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findByOpeningDateBetween(startDate, endDate, pageable);
+        return calledRepo.findByCreatedAtBetween(startDate, endDate, pageable);
     }
 
     @Transactional
@@ -143,7 +154,7 @@ public class CalledService {
     public Called fromDTO(CalledDto objDto) {
         return new Called(objDto.getId(), objDto.getClient(), objDto.getTypeService(), objDto.getSector(), objDto.getSubject(),
                 objDto.getDescription(), objDto.getUser(), objDto.getOpeningDate(), objDto.getClosingDate(),
-                objDto.getOpenBy(), objDto.getCloseBy(), objDto.getTechnicalReport(), objDto.getStatus(), objDto.getActive());
+                objDto.getOpenBy(), objDto.getCloseBy(), objDto.getTechnicalReport(), objDto.getStatus(), objDto.getActive(), objDto.getCreatedAt());
     }
 
     private void updateData(Called newObj, Called obj) {

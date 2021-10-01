@@ -1,6 +1,7 @@
 package com.andersonjunior.calltick.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -68,5 +71,9 @@ public class Called implements Serializable {
 
     @ApiModelProperty(value = "0 - Ativo; 1 - Inativo")
     private int active;
+
+    @ApiModelProperty(value = "Data do registro")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
     
 }
