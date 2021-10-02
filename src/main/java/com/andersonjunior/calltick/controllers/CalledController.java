@@ -134,17 +134,6 @@ public class CalledController {
     }
 
     @CrossOrigin
-    @ApiOperation(value = "Retorna uma lista de chamados por periodo")
-    @GetMapping(value = "/period", produces="application/json")
-    public ResponseEntity<List<Called>> findByPeriod(
-    @RequestParam(required = true) Date startDate,
-    @RequestParam(required = true) Date endDate,
-    @RequestParam(required = false, defaultValue = "0") Integer page,
-    @RequestParam(required = false, defaultValue = "5") Integer size) {
-        return new ResponseEntity<List<Called>>(service.findByPeriod(startDate, endDate, page, size), HttpStatus.OK);
-    }
-
-    @CrossOrigin
     @ApiOperation(value = "Retorna uma lista de chamados por cliente")
     @GetMapping(value = "/client", produces="application/json")
     public ResponseEntity<List<Called>> findByClient(

@@ -86,12 +86,6 @@ public class CalledService {
         return calledRepo.findBySectorAndStatus(sector, status, pageable);
     }
 
-    public List<Called> findByPeriod(Date startDate, Date endDate, Integer page, Integer size) {
-
-        Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findByCreatedAtBetween(startDate, endDate, pageable);
-    }
-
     @Transactional
     public Called insert(Called obj) {
         SimpleDateFormat formatOpeningDate = new SimpleDateFormat();
