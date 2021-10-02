@@ -8,10 +8,17 @@ import javax.validation.ConstraintValidatorContext;
 
 import com.andersonjunior.calltick.controllers.exception.FieldMessage;
 import com.andersonjunior.calltick.dto.ClientDto;
+import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.enums.ClientType;
+import com.andersonjunior.calltick.repositories.ClientRepository;
 import com.andersonjunior.calltick.services.validation.utils.BR;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class ClientInsertValidator implements ConstraintValidator<ClientInsert, ClientDto> {
+
+	@Autowired
+	private ClientRepository clientRepo;
 
 	@Override
 	public void initialize(ClientInsert ann) {
@@ -23,18 +30,25 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
 		List<FieldMessage> list = new ArrayList<>();
 		
 		if (objDto.getType().equals(ClientType.PESSOAFISICA.getCode()) && !BR.isValidCPF(objDto.getDocument())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
+			list.add(new FieldMessage("document", "CPF inválido"));
 		}
 
 		if (objDto.getType().equals(ClientType.PESSOAJURIDICA.getCode()) && !BR.isValidCNPJ(objDto.getDocument())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
+			list.add(new FieldMessage("document", "CNPJ inválido"));
 		}
+
+		Client aux = clientRepo.findByDocument(objDto.getDocument());
 		
+		if (objDto.getType().equals(ClientType.PESSOAJURIDICA.getCode()) && aux != null) {
+			list.add(new FieldMessage("document", "Documento já cadastrado"));
+		}
+						
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
-					.addConstraintViolation();
+			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName()).addConstraintViolation();
 		}
+
 		return list.isEmpty();
+
 	}
 }

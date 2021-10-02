@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 
 @Constraint(validatedBy = ClientInsertValidator.class)
 @Target({ ElementType.TYPE })
@@ -13,4 +14,6 @@ import javax.validation.Constraint;
 
 public @interface ClientInsert {
 	String message() default "Erro de validação";
+	Class<?>[] groups() default {};
+	Class<? extends Payload>[] payload() default {};
 }

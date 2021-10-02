@@ -76,8 +76,8 @@ public class ClientController {
     @CrossOrigin
     @ApiOperation(value = "Retorna um cliente por CPF ou CNPJ")
     @GetMapping(value = "/document")
-    public ResponseEntity<List<Client>> findByDocument(@RequestParam(value = "value") String document) {
-        return new ResponseEntity<List<Client>>(clientService.findByDocument(document), HttpStatus.OK);
+    public ResponseEntity<Client> findByDocument(@RequestParam(value = "value") String document) {
+        return new ResponseEntity<Client>(clientService.findByDocument(document), HttpStatus.OK);
     }
 
     @CrossOrigin

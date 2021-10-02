@@ -47,7 +47,7 @@ public class ClientService {
         return count;
     }
 
-    public List<Client> findByDocument(String document) {
+    public Client findByDocument(String document) {
         return clientRepo.findByDocument(document);
     }
 
@@ -73,6 +73,7 @@ public class ClientService {
 
     @Transactional
     public Client insert(Client obj) {
+        findByDocument(obj.getDocument());
         obj.setId(null);
         return clientRepo.save(obj);
     }
