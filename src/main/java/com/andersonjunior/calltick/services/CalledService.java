@@ -47,20 +47,6 @@ public class CalledService {
         return calledRepo.findCalls(pageable);
     }
 
-    public List<Called> findByUser(User user, Integer status, Integer active, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findByUserAndStatusAndActive(user, status, active, pageable);
-    }
-
-    public Integer countByUser(User user, Integer status) {
-        return calledRepo.findByUserAndStatus(user, status).size();
-    }
-
-    public Long count() {
-        Long count = calledRepo.count();
-        return count;
-    }
-
     public Called findById(Long id) {
         Optional<Called> obj = calledRepo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Registro não encontrado na base de dados"));
@@ -76,14 +62,31 @@ public class CalledService {
         return calledRepo.findByClient(client, status, pageable);
     }
 
-    public List<Called> findByParams(Client client, User user, Sector sector, int status, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findByClientAndUserAndSectorAndStatus(client, user, sector, status, pageable);
-    }
-
     public List<Called> findBySector(Sector sector, int status, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return calledRepo.findBySectorAndStatus(sector, status, pageable);
+    }
+
+    public List<Called> findByUser(User user, Integer status, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return calledRepo.findByUserAndStatus(user, status, pageable);
+    }
+    
+    public Long count() {
+        Long count = calledRepo.count();
+        return count;
+    }
+
+    public Integer countByUser(User user, Integer status) {
+        return calledRepo.countByUser(user, status).size();
+    }
+
+    public Integer countByClient(Client client, Integer status) {
+        return calledRepo.countByClient(client, status).size();
+    }
+
+    public Integer countBySector(Sector sector, Integer status) {
+        return calledRepo.countBySector(sector, status).size();
     }
 
     @Transactional

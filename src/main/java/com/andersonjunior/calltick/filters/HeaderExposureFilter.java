@@ -25,7 +25,7 @@ public class HeaderExposureFilter implements Filter {
 
 		HttpServletResponse res = (HttpServletResponse) response;
 		res.addHeader("access-control-expose-headers", "location");
-		res.addHeader("x-total-count", "location");
+		res.addHeader("x-ticket-count", "location");
 		chain.doFilter(request, response);
 	}
 

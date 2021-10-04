@@ -14,6 +14,7 @@ import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.services.CalledService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -67,13 +68,35 @@ public class CalledController {
     }
 
     @CrossOrigin
-    @ApiOperation(value = "Retorna a quantidade de chamados no banco")
+    @ApiOperation(value = "Retorna a quantidade de chamados no banco por usuários")
     @GetMapping(value = "/countByUser")
     public ResponseEntity<Integer> countRegistersByUser(
         @RequestParam(required = true) User user,
         @RequestParam(required = false, defaultValue = "1") Integer status
     ) {
         Integer obj = service.countByUser(user, status);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Retorna a quantidade de chamados no banco por cliente")
+    @GetMapping(value = "/countByClient")
+    public ResponseEntity<Integer> countRegistersByClient(
+        @RequestParam(required = true) Client client,
+        @RequestParam(required = false, defaultValue = "1") Integer status
+    ) {
+        Integer obj = service.countByClient(client, status);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Retorna a quantidade de chamados no banco por setor")
+    @GetMapping(value = "/countBySector")
+    public ResponseEntity<Integer> countRegistersBySector(
+        @RequestParam(required = true) Sector sector,
+        @RequestParam(required = false, defaultValue = "1") Integer status
+    ) {
+        Integer obj = service.countBySector(sector, status);
         return ResponseEntity.ok().body(obj);
     }
 
@@ -92,10 +115,12 @@ public class CalledController {
     public ResponseEntity<List<Called>> findByUser(
     @RequestParam(required = false) User user,
     @RequestParam(required = false, defaultValue = "1") Integer status,
-    @RequestParam(required = false, defaultValue = "0") Integer active,
     @RequestParam(required = false, defaultValue = "0") Integer page,
     @RequestParam(required = false, defaultValue = "5") Integer size) {
-        return new ResponseEntity<List<Called>>(service.findByUser(user, status, active, page, size), HttpStatus.OK);
+
+        List<Called> list = service.findByUser(user, status, page, size);        
+        return ResponseEntity.ok().body(list);
+
     }
 
     @CrossOrigin
@@ -107,19 +132,6 @@ public class CalledController {
     @RequestParam(required = false, defaultValue = "0") Integer page,
     @RequestParam(required = false, defaultValue = "5") Integer size) {
         return new ResponseEntity<List<Called>>(service.findBySector(sector, status, page, size), HttpStatus.OK);
-    }
-
-    @CrossOrigin
-    @ApiOperation(value = "Retorna uma lista de chamados pelo por filtro")
-    @GetMapping(value = "/param", produces="application/json")
-    public ResponseEntity<List<Called>> findByParam(
-    @RequestParam(required = false) Client client,
-    @RequestParam(required = false) User user,
-    @RequestParam(required = false) Sector sector,
-    @RequestParam(required = false, defaultValue = "1") Integer status,
-    @RequestParam(required = false, defaultValue = "0") Integer page,
-    @RequestParam(required = false, defaultValue = "5") Integer size) {
-        return new ResponseEntity<List<Called>>(service.findByParams(client, user, sector, status, page, size), HttpStatus.OK);
     }
 
     @CrossOrigin
