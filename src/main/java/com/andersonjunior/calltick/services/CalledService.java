@@ -14,6 +14,7 @@ import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.Transfers;
 import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.models.enums.CalledStatus;
+import com.andersonjunior.calltick.repositories.CalledCustomRepository;
 import com.andersonjunior.calltick.repositories.CalledRepository;
 import com.andersonjunior.calltick.repositories.TransfersRespository;
 import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
@@ -32,14 +33,16 @@ public class CalledService {
     @Autowired
     private TransfersRespository transfersRespo;
 
+    private final CalledCustomRepository calledCustomRepo;
+
+    @Autowired
+    public CalledService(CalledCustomRepository calledCustomRepo) {
+        this.calledCustomRepo = calledCustomRepo;
+    }
+
     public List<Called> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return calledRepo.findAll(pageable).getContent();
-    }
-
-    public List<Called> findAllCalls(Integer active, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findByActive(active, pageable);
     }
 
     public List<Called> findCalls(Integer page, Integer size) {
@@ -57,36 +60,17 @@ public class CalledService {
         return calledRepo.findByStatusAndActiveOrderByIdDesc(status, active, pageable);
     }
 
-    public List<Called> findByClient(Client client, int status, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findByClient(client, status, pageable);
+    public List<Called> findByFilter(Client client, User user, Integer status) {
+        return calledCustomRepo.find(client, user, status);
     }
 
-    public List<Called> findBySector(Sector sector, int status, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findBySectorAndStatus(sector, status, pageable);
-    }
-
-    public List<Called> findByUser(User user, Integer status, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return calledRepo.findByUserAndStatus(user, status, pageable);
+    public Integer countByFilter(Client client, User user, Integer status) {
+        return calledCustomRepo.count(client, user, status);
     }
     
     public Long count() {
         Long count = calledRepo.count();
         return count;
-    }
-
-    public Integer countByUser(User user, Integer status) {
-        return calledRepo.countByUser(user, status).size();
-    }
-
-    public Integer countByClient(Client client, Integer status) {
-        return calledRepo.countByClient(client, status).size();
-    }
-
-    public Integer countBySector(Sector sector, Integer status) {
-        return calledRepo.countBySector(sector, status).size();
     }
 
     @Transactional

@@ -14,8 +14,6 @@ import com.andersonjunior.calltick.repositories.ClientRepository;
 import com.andersonjunior.calltick.repositories.ContractRepository;
 import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
