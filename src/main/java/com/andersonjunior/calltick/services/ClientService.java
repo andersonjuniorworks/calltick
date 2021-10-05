@@ -9,10 +9,13 @@ import javax.transaction.Transactional;
 import com.andersonjunior.calltick.dto.ClientDto;
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Contract;
+import com.andersonjunior.calltick.repositories.ClientCustomRepository;
 import com.andersonjunior.calltick.repositories.ClientRepository;
 import com.andersonjunior.calltick.repositories.ContractRepository;
 import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +27,12 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepo;
+
+    private final ClientCustomRepository clientCustomRepo;
+
+    public ClientService(ClientCustomRepository clientCustomRepo) {
+        this.clientCustomRepo = clientCustomRepo;
+    }
 
     @Autowired
     private ContractRepository contractRepo;
@@ -69,6 +78,10 @@ public class ClientService {
 
     public List<Client> findByCityAndContract(String city, Contract contract) {
         return clientRepo.findByCityAndContract(city, contract);
+    }
+
+    public List<Client> findByFilter(String document, String fullname, String nickname, String city) {
+        return clientCustomRepo.find(document, fullname, nickname, city);
     }
 
     @Transactional

@@ -57,9 +57,9 @@ public class ReportController {
     @GetMapping("city")
     public ResponseEntity<byte[]> clientReportByCity(@RequestParam(value = "value") String city) throws Exception, JRException {
 
-        Long registers = (long) clientService.findByCity(city).size();
+        Long registers = (long) clientService.findByFilter(null, null, null, city).size();
 
-        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByCity(city));
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByFilter(null, null, null, city));
         JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("C:/Calltick/reports/client_report.jrxml"));
        
         HashMap<String, Object> map = new HashMap<>();

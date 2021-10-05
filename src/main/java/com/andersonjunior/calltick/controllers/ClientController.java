@@ -29,7 +29,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-
 @Api(value = "API Rest")
 @RestController
 @RequestMapping(value = "/api/clients")
@@ -39,29 +38,20 @@ public class ClientController {
     private ClientService clientService;
 
     @CrossOrigin
-    @ApiOperation(value = "Retorna um cliente por código")
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Client> findById(@PathVariable Long id) {
-        Client obj = clientService.find(id);
-        return ResponseEntity.ok().body(obj);
-    }
-
-    @CrossOrigin
     @ApiOperation(value = "Retorna todos os clientes")
     @GetMapping()
     public ResponseEntity<List<Client>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
 
-        Long count = clientService.count();
-        Double total = count.doubleValue() / size;
-        total = Math.ceil(total + 1) * 10;
-
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("x-total-count", total.toString());
-
+        /*
+         * Long count = clientService.count(); Double total = count.doubleValue() /
+         * size; total = Math.ceil(total + 1) * 10;
+         * 
+         * HttpHeaders responseHeaders = new HttpHeaders();
+         * responseHeaders.set("x-total-count", total.toString());
+         */
         List<Client> list = clientService.findAll(page, size);
-
-        return ResponseEntity.ok().headers(responseHeaders).body(list);
+        return ResponseEntity.ok().body(list);
 
     }
 
@@ -71,34 +61,6 @@ public class ClientController {
     public ResponseEntity<Long> countRegisters() {
         Long obj = clientService.count();
         return ResponseEntity.ok().body(obj);
-    }
-
-    @CrossOrigin
-    @ApiOperation(value = "Retorna um cliente por CPF ou CNPJ")
-    @GetMapping(value = "/document")
-    public ResponseEntity<Client> findByDocument(@RequestParam(value = "value") String document) {
-        return new ResponseEntity<Client>(clientService.findByDocument(document), HttpStatus.OK);
-    }
-
-    @CrossOrigin
-    @ApiOperation(value = "Retorna clientes por nome completo ou razão social")
-    @GetMapping(value = "/fullname")
-    public ResponseEntity<List<Client>> findByFullname(@RequestParam(value = "value") String fullname) {
-        return new ResponseEntity<List<Client>>(clientService.findByFullname(fullname), HttpStatus.OK);
-    }
-
-    @CrossOrigin
-    @ApiOperation(value = "Retorna clientes por apelido ou nome fantasia")
-    @GetMapping(value = "/nickname")
-    public ResponseEntity<List<Client>> findByNickname(@RequestParam(value = "value") String nickname) {
-        return new ResponseEntity<List<Client>>(clientService.findByNickname(nickname), HttpStatus.OK);
-    }
-
-    @CrossOrigin
-    @ApiOperation(value = "Retorna clientes por cidade")
-    @GetMapping(value = "/city")
-    public ResponseEntity<List<Client>> findByCity(@RequestParam(value = "value") String city) {
-        return new ResponseEntity<List<Client>>(clientService.findByCity(city), HttpStatus.OK);
     }
 
     @CrossOrigin
@@ -126,6 +88,20 @@ public class ClientController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         clientService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Retorna clientes por filtro")
+    @GetMapping(value = "/filter")
+    public ResponseEntity<List<Client>> findByFilter(
+            @RequestParam(value = "document", required = false) String document,
+            @RequestParam(value = "fullname", required = false) String fullname,
+            @RequestParam(value = "nickname", required = false) String nickname,
+            @RequestParam(value = "city", required = false) String city) {
+
+        List<Client> list = clientService.findByFilter(document, fullname, nickname, city);
+        return ResponseEntity.ok().body(list);
+
     }
 
 }

@@ -6,11 +6,12 @@ import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Contract;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface ClientRepository extends JpaRepository<Client, Long>, JpaSpecificationExecutor<Client> {
 
     @Transactional(readOnly=true)    
     Client findByDocument(String document);
