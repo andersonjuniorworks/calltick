@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
+import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.User;
 
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public class CalledCustomRepository {
         this.em = em;
     }
 
-    public List<Called> find(Client client, User user, Integer status) {
+    public List<Called> find(Client client, User user, Sector sector, Integer status) {
 
         String query = "SELECT c FROM Called AS c ";
         String condition = "WHERE";
@@ -34,9 +35,14 @@ public class CalledCustomRepository {
             condition = " AND ";
         }
 
+        
+        if (sector != null) {
+            query += condition + " c.sector = :sector";
+            condition = " AND ";
+        }
+
         if (status != null) {
             query += condition + " c.status = :status";
-            condition = " AND ";
         }
 
         var qry = em.createQuery(query, Called.class);
@@ -47,6 +53,10 @@ public class CalledCustomRepository {
 
         if (user != null) {
             qry.setParameter("user", user);
+        }
+
+        if (sector != null) {
+            qry.setParameter("sector", sector);
         }
 
         if (status != null) {
@@ -57,7 +67,7 @@ public class CalledCustomRepository {
 
     }
 
-    public Integer count(Client client, User user, Integer status) {
+    public Integer count(Client client, User user, Sector sector, Integer status) {
 
         String query = "SELECT c FROM Called AS c ";
         String condition = "WHERE";
@@ -72,9 +82,13 @@ public class CalledCustomRepository {
             condition = " AND ";
         }
 
+        if (sector != null) {
+            query += condition + " c.sector = :sector";
+            condition = " AND ";
+        }
+
         if (status != null) {
             query += condition + " c.status = :status";
-            condition = " AND ";
         }
 
         var qry = em.createQuery(query, Called.class);
@@ -85,6 +99,10 @@ public class CalledCustomRepository {
 
         if (user != null) {
             qry.setParameter("user", user);
+        }
+
+        if (sector != null) {
+            qry.setParameter("sector", sector);
         }
 
         if (status != null) {

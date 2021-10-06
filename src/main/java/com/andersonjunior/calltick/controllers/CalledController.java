@@ -1,6 +1,9 @@
 package com.andersonjunior.calltick.controllers;
 
 import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -72,9 +75,10 @@ public class CalledController {
     public ResponseEntity<Integer> countByFilter(
             @RequestParam(value = "client", required = false) Client client,
             @RequestParam(value = "user", required = false) User user,
+            @RequestParam(value = "sector", required = false) Sector sector,
             @RequestParam(value = "status", required = false) Integer status) {
 
-        Integer total = service.countByFilter(client, user, status);
+        Integer total = service.countByFilter(client, user, sector, status);
         return ResponseEntity.ok().body(total);
 
     }
@@ -94,11 +98,11 @@ public class CalledController {
     public ResponseEntity<List<Called>> findByFilter(
             @RequestParam(value = "client", required = false) Client client,
             @RequestParam(value = "user", required = false) User user,
+            @RequestParam(value = "sector", required = false) Sector sector,
             @RequestParam(value = "status", required = false) Integer status) {
 
-        List<Called> list = service.findByFilter(client, user, status);
+        List<Called> list = service.findByFilter(client, user, sector, status);
         return ResponseEntity.ok().body(list);
-
     }
 
     @CrossOrigin

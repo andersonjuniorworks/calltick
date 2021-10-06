@@ -53,38 +53,18 @@ public class ClientService {
         Long count = clientRepo.count();
         return count;
     }
-
-    public Client findByDocument(String document) {
-        return clientRepo.findByDocument(document);
+    
+    public Integer countByFilter(String document, String fullname, String nickname, String city, Contract contract) {
+        return clientCustomRepo.countByFilter(document, fullname, nickname, city, contract);
     }
 
-    public List<Client> findByFullname(String fullname) {
-        return clientRepo.findByFullnameContainingIgnoreCase(fullname);
-    }
-
-    public List<Client> findByNickname(String nickname) {
-        return clientRepo.findByNicknameContainingIgnoreCase(nickname);
-    }
-
-    public List<Client> findByCity(String city) {
-        return clientRepo.findByCityIgnoreCase(city);
-    }
-
-    public List<Client> findByContract(Contract contract) {
-        return clientRepo.findByContract(contract);
-    }
-
-    public List<Client> findByCityAndContract(String city, Contract contract) {
-        return clientRepo.findByCityAndContract(city, contract);
-    }
-
-    public List<Client> findByFilter(String document, String fullname, String nickname, String city) {
-        return clientCustomRepo.find(document, fullname, nickname, city);
+    public List<Client> findByFilter(String document, String fullname, String nickname, String city, Contract contract) {
+        return clientCustomRepo.find(document, fullname, nickname, city, contract);
     }
 
     @Transactional
     public Client insert(Client obj) {
-        findByDocument(obj.getDocument());
+        findByFilter(obj.getDocument(), null, null, null, null);
         obj.setId(null);
         return clientRepo.save(obj);
     }

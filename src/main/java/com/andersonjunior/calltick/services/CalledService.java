@@ -1,6 +1,7 @@
 package com.andersonjunior.calltick.services;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -60,12 +61,16 @@ public class CalledService {
         return calledRepo.findByStatusAndActiveOrderByIdDesc(status, active, pageable);
     }
 
-    public List<Called> findByFilter(Client client, User user, Integer status) {
-        return calledCustomRepo.find(client, user, status);
+    public List<Called> findByFilter(Client client, User user, Sector sector, Integer status) {
+        return calledCustomRepo.find(client, user, sector, status);
     }
 
-    public Integer countByFilter(Client client, User user, Integer status) {
-        return calledCustomRepo.count(client, user, status);
+    public List<Called> findByPeriod(LocalDate startDate, LocalDate endDate) {
+        return calledRepo.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    public Integer countByFilter(Client client, User user, Sector sector, Integer status) {
+        return calledCustomRepo.count(client, user, sector, status);
     }
     
     public Long count() {

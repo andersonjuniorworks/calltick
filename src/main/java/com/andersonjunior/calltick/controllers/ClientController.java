@@ -8,11 +8,10 @@ import javax.validation.Valid;
 
 import com.andersonjunior.calltick.dto.ClientDto;
 import com.andersonjunior.calltick.models.Client;
+import com.andersonjunior.calltick.models.Contract;
 import com.andersonjunior.calltick.services.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,7 +46,7 @@ public class ClientController {
         return ResponseEntity.ok().body(list);
 
     }
-    
+
     @CrossOrigin
     @ApiOperation(value = "Retorna clientes por filtro")
     @GetMapping(value = "/filter")
@@ -55,10 +54,24 @@ public class ClientController {
             @RequestParam(value = "document", required = false) String document,
             @RequestParam(value = "fullname", required = false) String fullname,
             @RequestParam(value = "nickname", required = false) String nickname,
-            @RequestParam(value = "city", required = false) String city) {
+            @RequestParam(value = "city", required = false) String city,
+            @RequestParam(value = "contract", required = false) Contract contract) {
 
-        List<Client> list = clientService.findByFilter(document, fullname, nickname, city);
+        List<Client> list = clientService.findByFilter(document, fullname, nickname, city, contract);
         return ResponseEntity.ok().body(list);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Retorna total de clientes por filtro")
+    @GetMapping(value = "/countByFilter")
+    public ResponseEntity<Integer> countByFilter(@RequestParam(value = "document", required = false) String document,
+            @RequestParam(value = "fullname", required = false) String fullname,
+            @RequestParam(value = "nickname", required = false) String nickname,
+            @RequestParam(value = "city", required = false) String city,
+            @RequestParam(value = "contract", required = false) Contract contract) {
+
+        Integer count = clientService.countByFilter(document, fullname, nickname, city, contract);
+        return ResponseEntity.ok().body(count);
 
     }
 

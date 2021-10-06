@@ -57,9 +57,9 @@ public class ReportController {
     @GetMapping("city")
     public ResponseEntity<byte[]> clientReportByCity(@RequestParam(value = "value") String city) throws Exception, JRException {
 
-        Long registers = (long) clientService.findByFilter(null, null, null, city).size();
+        Long registers = (long) clientService.findByFilter(null, null, null, city, null).size();
 
-        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByFilter(null, null, null, city));
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByFilter(null, null, null, city, null));
         JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("C:/Calltick/reports/client_report.jrxml"));
        
         HashMap<String, Object> map = new HashMap<>();
@@ -80,9 +80,9 @@ public class ReportController {
     @GetMapping("contract")
     public ResponseEntity<byte[]> clientReportByContract(@RequestParam(value = "value") Contract contract) throws Exception, JRException {
 
-        Long registers = (long) clientService.findByContract(contract).size();
+        Long registers = (long) clientService.countByFilter(null, null, null, null, contract);
 
-        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByContract(contract));
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByFilter(null, null, null, null, contract));
         JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("C:/Calltick/reports/client_report.jrxml"));
        
         HashMap<String, Object> map = new HashMap<>();
@@ -103,9 +103,9 @@ public class ReportController {
     @GetMapping("filter")
     public ResponseEntity<byte[]> clientReportByCityAndContract(@RequestParam(value = "city") String city, @RequestParam(value = "contract") Contract contract) throws Exception, JRException {
 
-        Long registers = (long) clientService.findByCityAndContract(city, contract).size();
+        Long registers = (long) clientService.countByFilter(null, null, null, city, contract);
 
-        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByCityAndContract(city, contract));
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findByFilter(null, null, null, city, contract));
         JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("C:/Calltick/reports/client_report.jrxml"));
        
         HashMap<String, Object> map = new HashMap<>();

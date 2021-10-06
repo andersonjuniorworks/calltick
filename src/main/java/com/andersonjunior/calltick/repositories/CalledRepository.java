@@ -1,5 +1,7 @@
 package com.andersonjunior.calltick.repositories;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import com.andersonjunior.calltick.models.Called;
@@ -19,6 +21,8 @@ public interface CalledRepository extends JpaRepository<Called, Long>{
     List<Called> findByClient(Client client, int status, Pageable pageable);
 
     List<Called> findByStatusAndActiveOrderByIdDesc(Integer status, Integer active, Pageable pageable);
+
+    List<Called> findByCreatedAtBetween(LocalDate startDate, LocalDate endDate);
 
     @Query(value = "SELECT c FROM Called c WHERE c.user = :user AND c.status = :status")
     List<Called> countByUser(User user, Integer status);
