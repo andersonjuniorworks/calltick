@@ -3,6 +3,7 @@ package com.andersonjunior.calltick.repositories;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
@@ -45,7 +46,7 @@ public class CalledCustomRepository {
             query += condition + " c.status = :status";
         }
 
-        var qry = em.createQuery(query, Called.class);
+        TypedQuery<Called> qry = em.createQuery(query, Called.class);
 
         if (client != null) {
             qry.setParameter("client", client);
@@ -91,7 +92,7 @@ public class CalledCustomRepository {
             query += condition + " c.status = :status";
         }
 
-        var qry = em.createQuery(query, Called.class);
+        TypedQuery<Called> qry = em.createQuery(query, Called.class);
 
         if (client != null) {
             qry.setParameter("client", client);

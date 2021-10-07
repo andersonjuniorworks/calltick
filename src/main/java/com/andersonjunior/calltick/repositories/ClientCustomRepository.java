@@ -3,13 +3,12 @@ package com.andersonjunior.calltick.repositories;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Contract;
 
 import org.springframework.stereotype.Repository;
-
-import lombok.var;
 
 @Repository
 public class ClientCustomRepository {
@@ -48,7 +47,7 @@ public class ClientCustomRepository {
             query += condition + " c.contract = :contract";
         }
 
-        var qry = em.createQuery(query, Client.class);
+        TypedQuery<Client> qry = em.createQuery(query, Client.class);
 
         if (document != null) {
             qry.setParameter("document", document);
@@ -103,7 +102,7 @@ public class ClientCustomRepository {
             query += condition + " c.contract = :contract";
         }
 
-        var qry = em.createQuery(query, Client.class);
+        TypedQuery<Client> qry = em.createQuery(query, Client.class);
 
         if (document != null) {
             qry.setParameter("document", document);
