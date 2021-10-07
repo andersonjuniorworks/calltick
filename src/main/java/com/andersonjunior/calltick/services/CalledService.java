@@ -2,6 +2,7 @@ package com.andersonjunior.calltick.services;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -65,8 +66,8 @@ public class CalledService {
         return calledCustomRepo.find(client, user, sector, status);
     }
 
-    public List<Called> findByPeriod(LocalDate startDate, LocalDate endDate) {
-        return calledRepo.findByCreatedAtBetween(startDate, endDate);
+    public List<Called> findByPeriod(Date startDate, Date endDate) {
+        return calledRepo.findByPeriod(startDate, endDate);
     }
 
     public Integer countByFilter(Client client, User user, Sector sector, Integer status) {
@@ -82,7 +83,7 @@ public class CalledService {
     public Called insert(Called obj) {
         SimpleDateFormat formatOpeningDate = new SimpleDateFormat();
         obj.setId(null);
-        obj.setOpeningDate(formatOpeningDate.format(new Date()));
+        obj.setOpeningDate(new Date());
         obj.setStatus(CalledStatus.ABERTO.getCode());
         obj.setActive(0);
         return calledRepo.save(obj);
@@ -110,7 +111,7 @@ public class CalledService {
 
         Called newObj = findById(obj.getId());
         
-        obj.setClosingDate(formatClosingDate.format(new Date()));
+        obj.setClosingDate(new Date());
         obj.setStatus(CalledStatus.FINALIZADO.getCode());
 
         updateData(newObj, obj);

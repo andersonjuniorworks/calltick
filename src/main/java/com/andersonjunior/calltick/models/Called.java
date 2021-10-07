@@ -1,6 +1,7 @@
 package com.andersonjunior.calltick.models;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -52,10 +55,12 @@ public class Called implements Serializable {
     private User user;
 
     @ApiModelProperty(value = "Data de abertura do chamado")
-    private String openingDate;
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+    private Date openingDate;
 
     @ApiModelProperty(value = "Data de fechamento do chamado")
-    private String closingDate;
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+    private Date closingDate;
 
     @ApiModelProperty(value = "Usuário que abriu o chamado")
     private String openBy;
@@ -73,7 +78,8 @@ public class Called implements Serializable {
     private int active;
 
     @ApiModelProperty(value = "Data do registro")
-    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Temporal(TemporalType.DATE)
     private Date createdAt;
     
 }

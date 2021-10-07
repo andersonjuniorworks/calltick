@@ -3,12 +3,14 @@ package com.andersonjunior.calltick.controllers;
 import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.andersonjunior.calltick.component.DataConverter;
 import com.andersonjunior.calltick.dto.CalledDto;
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
@@ -47,7 +49,7 @@ public class CalledController {
 
     @CrossOrigin
     @ApiOperation(value = "Retorna um chamado por código")
-    @GetMapping(value = "/{id}", produces="application/json")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Called> findById(@PathVariable Long id) {
         Called obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
@@ -55,7 +57,7 @@ public class CalledController {
 
     @CrossOrigin
     @ApiOperation(value = "Retorna todos os chamados")
-    @GetMapping(produces="application/json")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Called>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
         return new ResponseEntity<List<Called>>(service.findAll(page, size), HttpStatus.OK);
@@ -72,8 +74,7 @@ public class CalledController {
     @CrossOrigin
     @ApiOperation(value = "Retorna chamados por filtro")
     @GetMapping(value = "/countByFilter")
-    public ResponseEntity<Integer> countByFilter(
-            @RequestParam(value = "client", required = false) Client client,
+    public ResponseEntity<Integer> countByFilter(@RequestParam(value = "client", required = false) Client client,
             @RequestParam(value = "user", required = false) User user,
             @RequestParam(value = "sector", required = false) Sector sector,
             @RequestParam(value = "status", required = false) Integer status) {
@@ -85,18 +86,16 @@ public class CalledController {
 
     @CrossOrigin
     @ApiOperation(value = "Retorna uma lista de chamados ordenadas por ID")
-    @GetMapping(value = "/ordained", produces="application/json")
-    public ResponseEntity<List<Called>> findAllCalls(
-    @RequestParam(required = false, defaultValue = "0") Integer page,
-    @RequestParam(required = false, defaultValue = "5") Integer size) {
+    @GetMapping(value = "/ordained", produces = "application/json")
+    public ResponseEntity<List<Called>> findAllCalls(@RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size) {
         return new ResponseEntity<List<Called>>(service.findCalls(page, size), HttpStatus.OK);
     }
 
     @CrossOrigin
     @ApiOperation(value = "Retorna chamados por filtro")
     @GetMapping(value = "/filter")
-    public ResponseEntity<List<Called>> findByFilter(
-            @RequestParam(value = "client", required = false) Client client,
+    public ResponseEntity<List<Called>> findByFilter(@RequestParam(value = "client", required = false) Client client,
             @RequestParam(value = "user", required = false) User user,
             @RequestParam(value = "sector", required = false) Sector sector,
             @RequestParam(value = "status", required = false) Integer status) {
@@ -106,8 +105,20 @@ public class CalledController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Retorna chamados por filtro")
+    @GetMapping(value = "/period")
+    public ResponseEntity<List<Called>> findByPeriod(
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate) throws ParseException {
+                
+        List<Called> list = service.findByPeriod(new DataConverter().parseDate(startDate), new DataConverter().parseDate(endDate));
+        return ResponseEntity.ok().body(list);
+        
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Inserir chamado")
-    @PostMapping(value = "/insert", produces="application/json")
+    @PostMapping(value = "/insert", produces = "application/json")
     public ResponseEntity<Void> insert(@Valid @RequestBody CalledDto objDto) {
         Called obj = service.fromDTO(objDto);
         obj = service.insert(obj);
@@ -117,7 +128,7 @@ public class CalledController {
 
     @CrossOrigin
     @ApiOperation(value = "Editar chamado")
-    @PutMapping(value = "/update/{id}", produces="application/json")
+    @PutMapping(value = "/update/{id}", produces = "application/json")
     public ResponseEntity<Void> update(@Valid @RequestBody Called called, @PathVariable Long id) {
         called.setId(id);
         service.update(called);
@@ -126,7 +137,7 @@ public class CalledController {
 
     @CrossOrigin
     @ApiOperation(value = "Excluir chamado")
-    @PutMapping(value = "/delete/{id}", produces="application/json")
+    @PutMapping(value = "/delete/{id}", produces = "application/json")
     public ResponseEntity<Void> delete(@Valid @RequestBody Called called, @PathVariable Long id) {
         called.setId(id);
         service.delete(called);
@@ -135,7 +146,7 @@ public class CalledController {
 
     @CrossOrigin
     @ApiOperation(value = "Finalizar chamado")
-    @PutMapping(value = "/finish/{id}", produces="application/json")
+    @PutMapping(value = "/finish/{id}", produces = "application/json")
     public ResponseEntity<Void> finish(@Valid @RequestBody Called called, @PathVariable Long id) {
         called.setId(id);
         service.finishCalled(called);
@@ -144,7 +155,7 @@ public class CalledController {
 
     @CrossOrigin
     @ApiOperation(value = "Transferir chamado")
-    @PutMapping(value = "/transfer/{id}", produces="application/json")
+    @PutMapping(value = "/transfer/{id}", produces = "application/json")
     public ResponseEntity<Void> transfer(@Valid @RequestBody Called called, @PathVariable Long id) {
         called.setId(id);
         service.transfer(called);

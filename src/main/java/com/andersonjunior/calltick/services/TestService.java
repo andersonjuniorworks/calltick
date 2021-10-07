@@ -3,6 +3,7 @@ package com.andersonjunior.calltick.services;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.andersonjunior.calltick.models.Called;
@@ -85,10 +86,12 @@ public class TestService {
         Client c12 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "21915226000192",  "", "Sophia e Anderson Comercio de Bebidas Ltda", "Alvorada Bebidas", "60545035", "Rua Raimundo Pinheiro", "713", "Casa", "Centro", "Ceará", "Fortaleza", "85998549172", "8526304854", "presidencia@sophiaegiovannicomerciodebebidasltda.com.br", ct1, new Date());
         clientRepo.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12));
 
-        Called ca1 = new Called(null, c1, 3, s1, "Erro ao finalizar a venda fiscal", "Cliente relatou erro ao finalizar venda com forma de pagamento Cartão de Crédito",u3, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0, new Date());
-        Called ca2 = new Called(null, c2, 3, s2, "Dúvida na entrada de notas", "Cliente solicitou ajuda na entrada de notas manual", u3, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0, new Date());
-        Called ca3 = new Called(null, c2, 3, s3, "Atualização de Boleto", "Atualizar boleto do cliente para nova data", u2, formatDate.format(new Date()), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0, new Date());
-        calledRepo.saveAll(Arrays.asList(ca1, ca2, ca3));
+        Called ca1 = new Called(null, c1, 3, s1, "Erro ao finalizar a venda fiscal", "Cliente relatou erro ao finalizar venda com forma de pagamento Cartão de Crédito",u3,new Date(), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0, new Date());
+        Called ca2 = new Called(null, c2, 3, s2, "Dúvida na entrada de notas", "Cliente solicitou ajuda na entrada de notas manual", u3, new Date(), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0, new Date());
+        Called ca3 = new Called(null, c2, 3, s3, "Atualização de Boleto", "Atualizar boleto do cliente para nova data", u2,new Date(), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0, new Date());
+        Called ca4 = new Called(null, c2, 3, s3, "Atualização de Boleto", "Atualizar boleto do cliente para nova data", u2,new Date(), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0, new Date());
+        Called ca5 = new Called(null, c2, 3, s3, "Atualização de Boleto", "Atualizar boleto do cliente para nova data", u2,new Date(), null, u1.getFullname(), null, null, CalledStatus.ABERTO.getCode(), 0, new Date());
+        calledRepo.saveAll(Arrays.asList(ca1, ca2, ca3, ca4, ca5));
 
         Paid p1 = new Paid(null, c1, new Date(), 150.00, new Date());
         Paid p2 = new Paid(null, c2, new Date(), 400.00, new Date());
