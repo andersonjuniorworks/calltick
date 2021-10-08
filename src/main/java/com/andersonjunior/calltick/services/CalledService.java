@@ -1,5 +1,6 @@
 package com.andersonjunior.calltick.services;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -70,7 +71,7 @@ public class CalledService {
         return calledRepo.findByPeriod(startDate, endDate);
     }
 
-    public Integer countByFilter(Client client, User user, Sector sector, Integer status) {
+    public Integer countByFilter(Client client, User user, Sector sector, Integer status) throws ParseException {
         return calledCustomRepo.count(client, user, sector, status);
     }
     

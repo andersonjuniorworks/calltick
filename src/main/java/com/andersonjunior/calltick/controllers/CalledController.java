@@ -73,7 +73,7 @@ public class CalledController {
     public ResponseEntity<Integer> countByFilter(@RequestParam(value = "client", required = false) Client client,
             @RequestParam(value = "user", required = false) User user,
             @RequestParam(value = "sector", required = false) Sector sector,
-            @RequestParam(value = "status", required = false) Integer status) {
+            @RequestParam(value = "status", required = false) Integer status) throws ParseException {
 
         Integer total = service.countByFilter(client, user, sector, status);
         return ResponseEntity.ok().body(total);

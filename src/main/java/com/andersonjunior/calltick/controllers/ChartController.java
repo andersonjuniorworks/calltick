@@ -1,5 +1,6 @@
 package com.andersonjunior.calltick.controllers;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,7 +38,11 @@ public class ChartController {
         List<User> users = userService.findAll(0, 1000000);
         HashMap<String, Integer> list = new HashMap<String, Integer>();
         for (int i = 0; i < users.size(); i++) {
-            list.put(users.get(i).getFullname(), calledService.countByFilter(null, users.get(i), null, null));
+            try {
+                list.put(users.get(i).getFullname(), calledService.countByFilter(null, users.get(i), null, null));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return ResponseEntity.ok().body(list);
     }
@@ -48,7 +53,11 @@ public class ChartController {
         List<Sector> sectors = sectorService.findAll(0, 1000000);
         HashMap<String, Integer> list = new HashMap<String, Integer>();
         for (int i = 0; i < sectors.size(); i++) {
-            list.put(sectors.get(i).getDescription(), calledService.countByFilter(null, null, sectors.get(i), null));
+            try {
+                list.put(sectors.get(i).getDescription(), calledService.countByFilter(null, null, sectors.get(i), null));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return ResponseEntity.ok().body(list);
     }
