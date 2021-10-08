@@ -2,10 +2,6 @@ package com.andersonjunior.calltick.controllers;
 
 import java.net.URI;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -98,9 +94,11 @@ public class CalledController {
     public ResponseEntity<List<Called>> findByFilter(@RequestParam(value = "client", required = false) Client client,
             @RequestParam(value = "user", required = false) User user,
             @RequestParam(value = "sector", required = false) Sector sector,
-            @RequestParam(value = "status", required = false) Integer status) {
+            @RequestParam(value = "status", required = false) Integer status,
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate) throws ParseException {
 
-        List<Called> list = service.findByFilter(client, user, sector, status);
+        List<Called> list = service.findByFilter(client, user, sector, status, new DataConverter().parseDate(startDate), new DataConverter().parseDate(endDate));
         return ResponseEntity.ok().body(list);
     }
 

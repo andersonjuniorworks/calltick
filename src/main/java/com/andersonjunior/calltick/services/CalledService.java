@@ -62,8 +62,8 @@ public class CalledService {
         return calledRepo.findByStatusAndActiveOrderByIdDesc(status, active, pageable);
     }
 
-    public List<Called> findByFilter(Client client, User user, Sector sector, Integer status) {
-        return calledCustomRepo.find(client, user, sector, status);
+    public List<Called> findByFilter(Client client, User user, Sector sector, Integer status, Date startDate, Date endDate) {
+        return calledCustomRepo.find(client, user, sector, status, startDate, endDate);
     }
 
     public List<Called> findByPeriod(Date startDate, Date endDate) {

@@ -1,5 +1,6 @@
 package com.andersonjunior.calltick.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,7 +22,7 @@ public class CalledCustomRepository {
         this.em = em;
     }
 
-    public List<Called> find(Client client, User user, Sector sector, Integer status) {
+    public List<Called> find(Client client, User user, Sector sector, Integer status, Date startDate, Date endDate) {
 
         String query = "SELECT c FROM Called AS c ";
         String condition = "WHERE";
@@ -35,8 +36,7 @@ public class CalledCustomRepository {
             query += condition + " c.user = :user";
             condition = " AND ";
         }
-
-        
+ 
         if (sector != null) {
             query += condition + " c.sector = :sector";
             condition = " AND ";
@@ -44,6 +44,11 @@ public class CalledCustomRepository {
 
         if (status != null) {
             query += condition + " c.status = :status";
+            condition = " AND ";
+        }
+
+        if(startDate != null && endDate != null) {
+            query += condition + " c.createdAt BETWEEN :startDate AND :endDate";
         }
 
         TypedQuery<Called> qry = em.createQuery(query, Called.class);
@@ -62,6 +67,11 @@ public class CalledCustomRepository {
 
         if (status != null) {
             qry.setParameter("status", status);
+        }
+
+        if (startDate != null && endDate != null) {
+            qry.setParameter("startDate", startDate);
+            qry.setParameter("endDate", endDate);
         }
 
         return qry.getResultList();
