@@ -37,6 +37,14 @@ public class ClientController {
     private ClientService clientService;
 
     @CrossOrigin
+    @ApiOperation(value = "Retorna um cliente por código")
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<Client> findById(@PathVariable Long id) {
+        Client obj = clientService.find(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Retorna todos os clientes")
     @GetMapping()
     public ResponseEntity<List<Client>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
