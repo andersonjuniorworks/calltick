@@ -25,6 +25,4 @@ public interface CalledRepository extends JpaRepository<Called, Long>{
     @Query(value = "SELECT c FROM Called c ORDER BY c.id DESC")
     List<Called> findCalls(Pageable pageable);
 
-
-
 }

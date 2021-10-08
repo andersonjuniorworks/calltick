@@ -2,8 +2,6 @@ package com.andersonjunior.calltick.services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -63,7 +61,7 @@ public class CalledService {
         return calledRepo.findByStatusAndActiveOrderByIdDesc(status, active, pageable);
     }
 
-    public List<Called> findByFilter(Client client, User user, Sector sector, Integer status, Date startDate, Date endDate) {
+    public List<Called> findByFilter(Client client, User user, Sector sector, Integer status, String startDate, String endDate) throws ParseException {
         return calledCustomRepo.find(client, user, sector, status, startDate, endDate);
     }
 
@@ -84,7 +82,7 @@ public class CalledService {
     public Called insert(Called obj) {
         SimpleDateFormat formatOpeningDate = new SimpleDateFormat();
         obj.setId(null);
-        obj.setOpeningDate(new Date());
+        obj.setOpeningDate(formatOpeningDate.format(new Date()));
         obj.setStatus(CalledStatus.ABERTO.getCode());
         obj.setActive(0);
         return calledRepo.save(obj);
@@ -112,7 +110,7 @@ public class CalledService {
 
         Called newObj = findById(obj.getId());
         
-        obj.setClosingDate(new Date());
+        obj.setClosingDate(formatClosingDate.format(new Date()));
         obj.setStatus(CalledStatus.FINALIZADO.getCode());
 
         updateData(newObj, obj);

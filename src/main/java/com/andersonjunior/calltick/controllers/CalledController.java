@@ -83,8 +83,9 @@ public class CalledController {
     @CrossOrigin
     @ApiOperation(value = "Retorna uma lista de chamados ordenadas por ID")
     @GetMapping(value = "/ordained", produces = "application/json")
-    public ResponseEntity<List<Called>> findAllCalls(@RequestParam(required = false, defaultValue = "0") Integer page,
-            @RequestParam(required = false, defaultValue = "5") Integer size) {
+    public ResponseEntity<List<Called>> findAllCalls(
+        @RequestParam(required = false, defaultValue = "0") Integer page,
+        @RequestParam(required = false, defaultValue = "5") Integer size) {
         return new ResponseEntity<List<Called>>(service.findCalls(page, size), HttpStatus.OK);
     }
 
@@ -98,7 +99,7 @@ public class CalledController {
             @RequestParam(value = "startDate", required = false) String startDate,
             @RequestParam(value = "endDate", required = false) String endDate) throws ParseException {
 
-        List<Called> list = service.findByFilter(client, user, sector, status, new DataConverter().parseDate(startDate), new DataConverter().parseDate(endDate));
+        List<Called> list = service.findByFilter(client, user, sector, status, startDate, endDate);
         return ResponseEntity.ok().body(list);
     }
 

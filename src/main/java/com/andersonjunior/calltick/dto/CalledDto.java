@@ -23,8 +23,8 @@ public class CalledDto implements Serializable {
     private String subject;
     private String description;
     private User user;
-    private Date openingDate;
-    private Date closingDate;
+    private String openingDate;
+    private String closingDate;
     private String openBy;
     private String closeBy;
     private String technicalReport;

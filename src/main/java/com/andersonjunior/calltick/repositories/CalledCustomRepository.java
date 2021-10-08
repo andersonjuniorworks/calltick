@@ -25,33 +25,24 @@ public class CalledCustomRepository {
         this.em = em;
     }
 
-    public List<Called> find(Client client, User user, Sector sector, Integer status, Date startDate, Date endDate) {
+    public List<Called> find(Client client, User user, Sector sector, Integer status, String startDate, String endDate) throws ParseException {
 
-        String query = "SELECT c FROM Called AS c ";
-        String condition = "WHERE";
+        String query = "SELECT c FROM Called AS c WHERE c.status = :status";
 
         if (client != null) {
-            query += condition + " c.client = :client";
-            condition = " AND ";
+            query += " AND c.client = :client";
         }
 
         if (user != null) {
-            query += condition + " c.user = :user";
-            condition = " AND ";
+            query += " AND c.user = :user";
         }
  
         if (sector != null) {
-            query += condition + " c.sector = :sector";
-            condition = " AND ";
-        }
-
-        if (status != null) {
-            query += condition + " c.status = :status";
-            condition = " AND ";
+            query += " AND c.sector = :sector";
         }
 
         if(startDate != null && endDate != null) {
-            query += condition + " c.createdAt BETWEEN :startDate AND :endDate";
+            query += " AND c.createdAt BETWEEN :startDate AND :endDate";
         }
 
         TypedQuery<Called> qry = em.createQuery(query, Called.class);
@@ -73,8 +64,8 @@ public class CalledCustomRepository {
         }
 
         if (startDate != null && endDate != null) {
-            qry.setParameter("startDate", startDate);
-            qry.setParameter("endDate", endDate);
+            qry.setParameter("startDate", new DataConverter().parseDate(startDate));
+            qry.setParameter("endDate", new DataConverter().parseDate(endDate));
         }
 
         return qry.getResultList();

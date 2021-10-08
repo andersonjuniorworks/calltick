@@ -56,11 +56,11 @@ public class Called implements Serializable {
 
     @ApiModelProperty(value = "Data de abertura do chamado")
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-    private Date openingDate;
+    private String openingDate;
 
     @ApiModelProperty(value = "Data de fechamento do chamado")
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-    private Date closingDate;
+    private String closingDate;
 
     @ApiModelProperty(value = "Usuário que abriu o chamado")
     private String openBy;
