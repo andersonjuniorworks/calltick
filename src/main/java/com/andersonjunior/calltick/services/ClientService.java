@@ -49,6 +49,11 @@ public class ClientService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado na base de dados!!!"));
     }
 
+    public Client findByDocument(String document) {
+        Client obj = clientRepo.findByDocument(document);
+        return obj;
+    }
+
     public Long count() {
         Long count = clientRepo.count();
         return count;
@@ -64,7 +69,6 @@ public class ClientService {
 
     @Transactional
     public Client insert(Client obj) {
-        findByFilter(obj.getDocument(), null, null, null, null);
         obj.setId(null);
         return clientRepo.save(obj);
     }

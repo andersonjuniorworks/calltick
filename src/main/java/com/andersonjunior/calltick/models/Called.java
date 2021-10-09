@@ -79,7 +79,7 @@ public class Called implements Serializable {
 
     @ApiModelProperty(value = "Data do registro")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     
 }
