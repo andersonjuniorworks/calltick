@@ -40,7 +40,11 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
 		Client aux = clientRepo.findByDocument(objDto.getDocument());
 		
 		if (objDto.getType().equals(ClientType.PESSOAJURIDICA.getCode()) && aux != null) {
-			list.add(new FieldMessage("document", "Documento já cadastrado"));
+			list.add(new FieldMessage("document", "CNPJ já cadastrado"));
+		}
+
+		if (objDto.getType().equals(ClientType.PESSOAFISICA.getCode()) && aux != null) {
+			list.add(new FieldMessage("document", "CPF já cadastrado"));
 		}
 						
 		for (FieldMessage e : list) {

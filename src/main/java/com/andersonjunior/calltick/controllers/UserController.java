@@ -68,8 +68,8 @@ public class UserController {
     @CrossOrigin
     @ApiOperation(value = "Retorna usuários por email")
     @GetMapping(value = "/email")
-    public ResponseEntity<Optional<User>> findByEmail(@RequestParam(value = "value") String email) {
-        return new ResponseEntity<Optional<User>>(userService.findByEmail(email), HttpStatus.OK);
+    public ResponseEntity<User> findByEmail(@RequestParam(value = "value") String email) {
+        return new ResponseEntity<User>(userService.findByEmail(email), HttpStatus.OK);
     }
 
     @CrossOrigin
@@ -92,11 +92,11 @@ public class UserController {
     @CrossOrigin
     @GetMapping("/login")
     public ResponseEntity<Boolean> login(@RequestParam String email, @RequestParam String password) {
-        Optional<User> optUser = userService.findByEmail(email);
-        if (optUser.isEmpty()) {
+        User optUser = userService.findByEmail(email);
+        if (optUser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
         }
-        boolean valid = encoder.matches(password, optUser.get().getPassword());
+        boolean valid = encoder.matches(password, optUser.getPassword());
         HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
         return ResponseEntity.status(status).body(valid);
     }

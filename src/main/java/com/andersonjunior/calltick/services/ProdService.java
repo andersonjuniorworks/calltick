@@ -22,7 +22,9 @@ public class ProdService {
 
     public void instantiateProdDatabase() throws ParseException {
 
-        Optional<User> user = userRepo.findByEmail("andersonjunior.dev@gmail.com");
+        User user = userRepo.findByEmail("andersonjunior.dev@gmail.com");
+
+        System.out.println(user);
 
         if(user == null) {
             User u1 = new User(null, "Administrador", "andersonjunior.dev@gmail.com", encoder.encode("printf@javadev"), Profile.ADMINISTRADOR.getCode());

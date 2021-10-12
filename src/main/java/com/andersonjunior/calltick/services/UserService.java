@@ -41,7 +41,7 @@ public class UserService {
         return count;
     }
 
-    public Optional<User> findByEmail(String email) {
+    public User findByEmail(String email) {
         return userRepo.findByEmail(email);
     }
 
