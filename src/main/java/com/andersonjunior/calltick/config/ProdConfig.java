@@ -20,7 +20,6 @@ public class ProdConfig {
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String strategy;
     
-	
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
 		dbService.instantiateProdDatabase();
