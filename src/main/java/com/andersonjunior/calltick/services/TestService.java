@@ -3,7 +3,6 @@ package com.andersonjunior.calltick.services;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.andersonjunior.calltick.models.Called;

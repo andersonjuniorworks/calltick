@@ -2,7 +2,6 @@ package com.andersonjunior.calltick.services;
 
 import java.text.ParseException;
 import java.util.Arrays;
-import java.util.Optional;
 
 import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.models.enums.Profile;
@@ -23,8 +22,6 @@ public class ProdService {
     public void instantiateProdDatabase() throws ParseException {
 
         User user = userRepo.findByEmail("andersonjunior.dev@gmail.com");
-
-        System.out.println(user);
 
         if(user == null) {
             User u1 = new User(null, "Administrador", "andersonjunior.dev@gmail.com", encoder.encode("printf@javadev"), Profile.ADMINISTRADOR.getCode());

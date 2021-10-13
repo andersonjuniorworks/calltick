@@ -1,39 +1,9 @@
 package com.andersonjunior.calltick.services;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import com.andersonjunior.calltick.models.Key;
-import com.andersonjunior.calltick.repositories.KeyRepository;
-import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class KeyService {
-
-    @Autowired
-    private KeyRepository keyRepo;
-
-    public List<Key> findAll() {
-        return keyRepo.findAll();
-    }
-
-    public Key findById(Long id) {
-        Optional<Key> obj = keyRepo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Chave não encontrada na base de dados!!!"));
-    }
-
-    @Transactional
-    public Key insert(Key obj) {
-        obj.setId(null);
-        obj.setCreatedAt(new Date());
-        return keyRepo.save(obj);
-    }
 
     public String gerarChave(String cnpj, String ma) {
         String key = "";
