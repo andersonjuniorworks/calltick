@@ -83,6 +83,7 @@ public class CalledService {
         SimpleDateFormat formatOpeningDate = new SimpleDateFormat();
         obj.setId(null);
         obj.setOpeningDate(formatOpeningDate.format(new Date()));
+        obj.setCreatedAt(new Date());
         obj.setStatus(CalledStatus.ABERTO.getCode());
         obj.setActive(0);
         return calledRepo.save(obj);

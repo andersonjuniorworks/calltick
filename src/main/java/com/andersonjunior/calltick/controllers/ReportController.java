@@ -26,14 +26,14 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
-@RequestMapping(value = "/api/clientReport/")
+@RequestMapping(value = "/api")
 public class ReportController {
 
     @Autowired
     private ClientService clientService;
 
     @CrossOrigin
-    @GetMapping()
+    @GetMapping(value = "/clientReport/")
     public ResponseEntity<byte[]> generatePdf() throws FileNotFoundException, JRException {
 
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(clientService.findAllOne());
@@ -54,7 +54,7 @@ public class ReportController {
     }
 
     @CrossOrigin
-    @GetMapping("city")
+    @GetMapping("/clientReport/city")
     public ResponseEntity<byte[]> clientReportByCity(@RequestParam(value = "value") String city) throws Exception, JRException {
 
         Long registers = (long) clientService.findByFilter(null, null, null, city, null).size();
@@ -77,7 +77,7 @@ public class ReportController {
     }
 
     @CrossOrigin
-    @GetMapping("contract")
+    @GetMapping("/clientReport/contract")
     public ResponseEntity<byte[]> clientReportByContract(@RequestParam(value = "value") Contract contract) throws Exception, JRException {
 
         Long registers = (long) clientService.countByFilter(null, null, null, null, contract);
@@ -100,7 +100,7 @@ public class ReportController {
     }
 
     @CrossOrigin
-    @GetMapping("filter")
+    @GetMapping("/clientReport/filter")
     public ResponseEntity<byte[]> clientReportByCityAndContract(@RequestParam(value = "city") String city, @RequestParam(value = "contract") Contract contract) throws Exception, JRException {
 
         Long registers = (long) clientService.countByFilter(null, null, null, city, contract);
