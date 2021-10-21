@@ -44,7 +44,7 @@ public class Called implements Serializable {
     private String subject;
 
     @ApiModelProperty(value = "Descrição da solicitação do cliente")
-    @Column(length = 5000)
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
 
     @ApiModelProperty(value = "Usuário responsável pelo chamado")

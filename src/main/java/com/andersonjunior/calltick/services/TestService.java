@@ -56,8 +56,6 @@ public class TestService {
 
     public void instantiateTestDatabase() throws ParseException {
 
-        SimpleDateFormat formatDate = new SimpleDateFormat();
-
         User u1 = new User(null, "Administrador", "admin@admin.com", encoder.encode("printf@javadev"), Profile.ADMINISTRADOR.getCode());
         User u2 = new User(null, "Ana Vitória", "vitoria@gmail.com", encoder.encode("123"), Profile.ATENDENTE.getCode());
         User u3 = new User(null, "Gonçalo Neto", "neto@gmail.com", encoder.encode("123"), Profile.TECNICO.getCode());
@@ -95,8 +93,8 @@ public class TestService {
         Called ca1 = new Called(null, c1, 3, s1, "ERRO DE IMPRESSÃO", "Erro ao imprimir cupom fiscal", u3, format.format(new Date()), format.format(new Date()), "Administrador", "Gonçalo Neto", CalledStatus.FINALIZADO.getCode(), 0, new Date());
         calledRepo.saveAll(Arrays.asList(ca1));
 
-        TechnicalReport tr1 = new TechnicalReport(null, "Realizando teste 01", ca1, new Date());
-        TechnicalReport tr2 = new TechnicalReport(null, "Realizando teste 02", ca1, new Date());
+        TechnicalReport tr1 = new TechnicalReport(null, "Realizando teste 01", ca1, u1, new Date());
+        TechnicalReport tr2 = new TechnicalReport(null, "Realizando teste 02", ca1, u2, new Date());
         technicalRepo.saveAll(Arrays.asList(tr1, tr2)); 
 
         Paid p1 = new Paid(null, c1, new Date(), 150.00, new Date());

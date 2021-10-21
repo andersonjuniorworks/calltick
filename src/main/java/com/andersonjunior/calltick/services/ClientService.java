@@ -11,7 +11,6 @@ import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Contract;
 import com.andersonjunior.calltick.repositories.ClientCustomRepository;
 import com.andersonjunior.calltick.repositories.ClientRepository;
-import com.andersonjunior.calltick.repositories.ContractRepository;
 import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +30,6 @@ public class ClientService {
     public ClientService(ClientCustomRepository clientCustomRepo) {
         this.clientCustomRepo = clientCustomRepo;
     }
-
-    @Autowired
-    private ContractRepository contractRepo;
 
     public List<Client> findAllOne() {
         return clientRepo.findAll();

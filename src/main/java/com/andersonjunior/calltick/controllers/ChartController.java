@@ -1,14 +1,12 @@
 package com.andersonjunior.calltick.controllers;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.models.enums.CalledStatus;
-import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Contract;
 import com.andersonjunior.calltick.services.CalledService;
 import com.andersonjunior.calltick.services.SectorService;

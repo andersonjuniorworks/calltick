@@ -118,11 +118,11 @@ public class CalledController {
     @CrossOrigin
     @ApiOperation(value = "Inserir chamado")
     @PostMapping(value = "/insert", produces = "application/json")
-    public ResponseEntity<Void> insert(@Valid @RequestBody CalledDto objDto) {
+    public ResponseEntity<Called> insert(@Valid @RequestBody CalledDto objDto) {
         Called obj = service.fromDTO(objDto);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(obj);
     }
 
     @CrossOrigin

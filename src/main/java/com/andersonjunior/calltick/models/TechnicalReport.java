@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,6 +37,9 @@ public class TechnicalReport implements Serializable {
     @JsonIgnore
     @ManyToOne
     private Called called;
+    
+    @OneToOne
+    private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
