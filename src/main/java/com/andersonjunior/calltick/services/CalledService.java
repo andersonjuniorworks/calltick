@@ -122,8 +122,7 @@ public class CalledService {
     public Called reopenCalled(Called obj) {
         SimpleDateFormat formatClosingDate = new SimpleDateFormat();
         Called newObj = findById(obj.getId());
-        obj.setClosingDate(formatClosingDate.format(new Date()));
-        obj.setStatus(CalledStatus.FINALIZADO.getCode());
+        obj.setStatus(CalledStatus.ABERTO.getCode());
         updateData(newObj, obj);
         return calledRepo.save(newObj);
     }
