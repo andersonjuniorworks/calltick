@@ -153,6 +153,15 @@ public class CalledController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Reabrir chamado")
+    @PutMapping(value = "/reopen/{id}", produces = "application/json")
+    public ResponseEntity<Void> reopen(@Valid @RequestBody Called called, @PathVariable Long id) {
+        called.setId(id);
+        service.reopenCalled(called);
+        return ResponseEntity.noContent().build();
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Transferir chamado")
     @PutMapping(value = "/transfer/{id}", produces = "application/json")
     public ResponseEntity<Void> transfer(@Valid @RequestBody Called called, @PathVariable Long id) {

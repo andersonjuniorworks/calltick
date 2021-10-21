@@ -119,6 +119,16 @@ public class CalledService {
     }
 
     @Transactional
+    public Called reopenCalled(Called obj) {
+        SimpleDateFormat formatClosingDate = new SimpleDateFormat();
+        Called newObj = findById(obj.getId());
+        obj.setClosingDate(formatClosingDate.format(new Date()));
+        obj.setStatus(CalledStatus.FINALIZADO.getCode());
+        updateData(newObj, obj);
+        return calledRepo.save(newObj);
+    }
+
+    @Transactional
     public Called transfer(Called obj) {
 
         String newUser = obj.getUser().getEmail();
@@ -141,7 +151,7 @@ public class CalledService {
     public Called fromDTO(CalledDto objDto) {
         return new Called(objDto.getId(), objDto.getClient(), objDto.getTypeService(), objDto.getSector(), objDto.getSubject(),
                 objDto.getDescription(), objDto.getUser(), objDto.getOpeningDate(), objDto.getClosingDate(),
-                objDto.getOpenBy(), objDto.getCloseBy(), objDto.getTechnicalReport(), objDto.getStatus(), objDto.getActive(), objDto.getCreatedAt());
+                objDto.getOpenBy(), objDto.getCloseBy(), objDto.getStatus(), objDto.getActive(), objDto.getCreatedAt());
     }
 
     private void updateData(Called newObj, Called obj) {
@@ -153,7 +163,6 @@ public class CalledService {
         newObj.setUser(obj.getUser());
         newObj.setOpenBy(obj.getOpenBy());
         newObj.setCloseBy(obj.getCloseBy());
-        newObj.setTechnicalReport(obj.getTechnicalReport());
         newObj.setOpeningDate(obj.getOpeningDate());
         newObj.setClosingDate(obj.getClosingDate());
         newObj.setStatus(obj.getStatus());

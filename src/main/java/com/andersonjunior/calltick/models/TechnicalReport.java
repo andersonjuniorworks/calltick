@@ -1,37 +1,43 @@
 package com.andersonjunior.calltick.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "User")
-@Table(name = "tb_users")
+@Entity
+@Table(name = "tb_technical_reports")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Data
-public class User implements Serializable {
+public class TechnicalReport implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String fullname;
-    @Column(unique = true)
-    private String email;
-    @JsonIgnore 
-    private String password;
-    private Integer profile;
 
+    @Column(columnDefinition = "TEXT")
+    private String content;
+
+    @JsonIgnore
+    @ManyToOne
+    private Called called;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    
 }
