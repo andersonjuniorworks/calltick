@@ -90,7 +90,7 @@ public class TestService {
 
         SimpleDateFormat format = new SimpleDateFormat();
 
-        Called ca1 = new Called(null, c1, 3, s1, "ERRO DE IMPRESSÃO", "Erro ao imprimir cupom fiscal", u3, format.format(new Date()), format.format(new Date()), "Administrador", "Gonçalo Neto", CalledStatus.FINALIZADO.getCode(), 0, new Date());
+        Called ca1 = new Called(null, c1, 3, s1, "ERRO DE IMPRESSÃO", "<font>VERIFICAR CONEX&#199;AO SGF</font><p>TEAMWIVER&#160;</p><p>ID: 1 508 367 736</p><p>SENHA: geu2792z</p>", u3, format.format(new Date()), format.format(new Date()), "Administrador", "Gonçalo Neto", CalledStatus.FINALIZADO.getCode(), 0, new Date());
         calledRepo.saveAll(Arrays.asList(ca1));
 
         TechnicalReport tr1 = new TechnicalReport(null, "Realizando teste 01", ca1, u1, new Date());
