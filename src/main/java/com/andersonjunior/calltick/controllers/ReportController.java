@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Contract;

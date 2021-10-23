@@ -120,7 +120,6 @@ public class CalledService {
 
     @Transactional
     public Called reopenCalled(Called obj) {
-        SimpleDateFormat formatClosingDate = new SimpleDateFormat();
         Called newObj = findById(obj.getId());
         obj.setStatus(CalledStatus.ABERTO.getCode());
         updateData(newObj, obj);
