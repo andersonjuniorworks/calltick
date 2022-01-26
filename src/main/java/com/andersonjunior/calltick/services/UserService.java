@@ -82,7 +82,7 @@ public class UserService {
 
     public User fromDTO(UserDto objDto) {
         return new User(objDto.getId(), objDto.getFullname(), objDto.getEmail(), objDto.getPassword(),
-                objDto.getProfile());
+                objDto.getProfile(), objDto.getStatus());
     }
 
     private void updateData(User newObj, User obj) {

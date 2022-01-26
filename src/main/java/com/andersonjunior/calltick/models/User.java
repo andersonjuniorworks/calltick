@@ -30,8 +30,9 @@ public class User implements Serializable {
     private String fullname;
     @Column(unique = true)
     private String email;
-    @JsonIgnore 
+    @JsonIgnore
     private String password;
     private Integer profile;
+    private Integer status;
 
 }
