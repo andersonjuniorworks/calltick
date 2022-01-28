@@ -49,7 +49,7 @@ public class UserController {
 
     @CrossOrigin
     @ApiOperation(value = "Retorna todos os usuários")
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<User>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
         return new ResponseEntity<List<User>>(userService.findAll(page, size), HttpStatus.OK);

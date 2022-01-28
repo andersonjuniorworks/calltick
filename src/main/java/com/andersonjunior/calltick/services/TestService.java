@@ -15,7 +15,6 @@ import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.models.enums.CalledStatus;
 import com.andersonjunior.calltick.models.enums.ClientType;
 import com.andersonjunior.calltick.models.enums.Profile;
-import com.andersonjunior.calltick.models.enums.UserStatus;
 import com.andersonjunior.calltick.repositories.CalledRepository;
 import com.andersonjunior.calltick.repositories.ClientRepository;
 import com.andersonjunior.calltick.repositories.ContractRepository;
@@ -58,11 +57,9 @@ public class TestService {
     public void instantiateTestDatabase() throws ParseException {
 
         User u1 = new User(null, "Administrador", "admin@admin.com", encoder.encode("printf@javadev"),
-                Profile.ADMINISTRADOR.getCode(), UserStatus.ONLINE.getCode());
-        User u2 = new User(null, "Ana Vitória", "vitoria@gmail.com", encoder.encode("123"), Profile.ATENDENTE.getCode(),
-                UserStatus.OFFLINE.getCode());
-        User u3 = new User(null, "Gonçalo Neto", "neto@gmail.com", encoder.encode("123"), Profile.TECNICO.getCode(),
-                UserStatus.OFFLINE.getCode());
+                Profile.ADMINISTRADOR.getCode());
+        User u2 = new User(null, "Ana Vitória", "vitoria@gmail.com", encoder.encode("123"), Profile.ATENDENTE.getCode());
+        User u3 = new User(null, "Gonçalo Neto", "neto@gmail.com", encoder.encode("123"), Profile.TECNICO.getCode());
         userRepo.saveAll(Arrays.asList(u1, u2, u3));
 
         Sector s1 = new Sector(null, "Suporte Técnico");

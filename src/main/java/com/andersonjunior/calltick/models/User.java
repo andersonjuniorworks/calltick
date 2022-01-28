@@ -33,6 +33,5 @@ public class User implements Serializable {
     @JsonIgnore
     private String password;
     private Integer profile;
-    private Integer status;
 
 }
