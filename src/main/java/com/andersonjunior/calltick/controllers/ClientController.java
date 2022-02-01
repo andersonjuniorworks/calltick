@@ -49,10 +49,8 @@ public class ClientController {
     @GetMapping()
     public ResponseEntity<List<Client>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
-
         List<Client> list = clientService.findAll(page, size);
         return ResponseEntity.ok().body(list);
-
     }
 
     @CrossOrigin

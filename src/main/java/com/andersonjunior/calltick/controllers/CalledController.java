@@ -68,14 +68,24 @@ public class CalledController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Retorna a quantidade de chamados por status")
+    @GetMapping(value = "/countByStatus")
+    public ResponseEntity<Integer> countByStatuResponseEntity(@RequestParam Integer status) {
+        Integer obj = service.countByStatus(status);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Retorna chamados por filtro")
     @GetMapping(value = "/countByFilter")
     public ResponseEntity<Integer> countByFilter(@RequestParam(value = "client", required = false) Client client,
             @RequestParam(value = "user", required = false) User user,
             @RequestParam(value = "sector", required = false) Sector sector,
-            @RequestParam(value = "status", required = false) Integer status) throws ParseException {
+            @RequestParam(value = "status", required = false) Integer status, 
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate) throws ParseException {
 
-        Integer total = service.countByFilter(client, user, sector, status);
+        Integer total = service.countByFilter(client, user, sector, status, startDate, endDate);
         return ResponseEntity.ok().body(total);
 
     }
@@ -148,6 +158,7 @@ public class CalledController {
     @PutMapping(value = "/finish/{id}", produces = "application/json")
     public ResponseEntity<Void> finish(@Valid @RequestBody Called called, @PathVariable Long id) {
         called.setId(id);
+
         service.finishCalled(called);
         return ResponseEntity.noContent().build();
     }

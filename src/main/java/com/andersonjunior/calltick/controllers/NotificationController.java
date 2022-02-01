@@ -3,10 +3,13 @@ package com.andersonjunior.calltick.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Notification;
 import com.andersonjunior.calltick.models.User;
+import com.andersonjunior.calltick.services.CalledService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,8 @@ public class NotificationController {
 
     private Notification notification = new Notification("");
 
+    @Autowired
+    private CalledService calledService;
 
     @CrossOrigin
     @GetMapping("/notify")
@@ -55,6 +60,21 @@ public class NotificationController {
     public List<User> getUserConnected() {
         template.convertAndSend("/topic/users", notification);
         return users;
+    }
+
+    @CrossOrigin
+    @GetMapping("/getTickets")
+    public ResponseEntity<List<Called>> getTickets() {
+        List<Called> list = calledService.findAll(0, 1000000);
+        template.convertAndSend("/topic/tickets", list);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @CrossOrigin
+    @GetMapping("/getUsers")
+    public ResponseEntity<List<User>> getUsers() {
+        template.convertAndSend("/topic/tickets", users);
+        return ResponseEntity.ok().body(users);
     }
     
 }

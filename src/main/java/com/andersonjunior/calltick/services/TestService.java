@@ -10,7 +10,7 @@ import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Contract;
 import com.andersonjunior.calltick.models.Paid;
 import com.andersonjunior.calltick.models.Sector;
-import com.andersonjunior.calltick.models.TechnicalReport;
+import com.andersonjunior.calltick.models.Comment;
 import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.models.enums.CalledStatus;
 import com.andersonjunior.calltick.models.enums.ClientType;
@@ -20,7 +20,7 @@ import com.andersonjunior.calltick.repositories.ClientRepository;
 import com.andersonjunior.calltick.repositories.ContractRepository;
 import com.andersonjunior.calltick.repositories.PaidRepository;
 import com.andersonjunior.calltick.repositories.SectorRepository;
-import com.andersonjunior.calltick.repositories.TechnicalReportRepository;
+import com.andersonjunior.calltick.repositories.CommentRepository;
 import com.andersonjunior.calltick.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class TestService {
     private ContractRepository contractRepo;
 
     @Autowired
-    private TechnicalReportRepository technicalRepo;
+    private CommentRepository commentRepo;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -123,15 +123,12 @@ public class TestService {
 
         SimpleDateFormat format = new SimpleDateFormat();
 
-        Called ca1 = new Called(null, c1, 3, s1, "ERRO DE IMPRESSÃO",
-                "<font>VERIFICAR CONEX&#199;AO SGF</font><p>TEAMWIVER&#160;</p><p>ID: 1 508 367 736</p><p>SENHA: geu2792z</p>",
-                u3, format.format(new Date()), format.format(new Date()), "Administrador", "Gonçalo Neto",
-                CalledStatus.FINALIZADO.getCode(), 0, new Date());
+        Called ca1 = new Called(null, c1, 3, s1, "ERRO DE IMPRESSÃO", "<font>VERIFICAR CONEX&#199;AO SGF</font><p>TEAMWIVER&#160;</p><p>ID: 1 508 367 736</p><p>SENHA: geu2792z</p>", u3, format.format(new Date()), format.format(new Date()), "Administrador", "Gonçalo Neto", CalledStatus.FINALIZADO.getCode(), "Foi trocado o cabo usb", 0, new Date());
         calledRepo.saveAll(Arrays.asList(ca1));
 
-        TechnicalReport tr1 = new TechnicalReport(null, "Realizando teste 01", ca1, u1, new Date());
-        TechnicalReport tr2 = new TechnicalReport(null, "Realizando teste 02", ca1, u2, new Date());
-        technicalRepo.saveAll(Arrays.asList(tr1, tr2));
+        Comment tr1 = new Comment(null, "Realizando teste 01", ca1, u1, new Date());
+        Comment tr2 = new Comment(null, "Realizando teste 02", ca1, u2, new Date());
+        commentRepo.saveAll(Arrays.asList(tr1, tr2));
 
         Paid p1 = new Paid(null, c1, new Date(), 150.00, new Date());
         Paid p2 = new Paid(null, c2, new Date(), 400.00, new Date());

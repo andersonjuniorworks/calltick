@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TechnicalReportDto implements Serializable {
+public class CommentDto implements Serializable {
 
     private Long id;
 

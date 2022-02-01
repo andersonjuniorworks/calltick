@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import com.andersonjunior.calltick.component.CaptureIntervalDate;
 import com.andersonjunior.calltick.component.DataConverter;
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
@@ -72,36 +71,28 @@ public class CalledCustomRepository {
 
     }
 
-    public Integer count(Client client, User user, Sector sector, Integer status) throws ParseException {
+    public Integer count(Client client, User user, Sector sector, Integer status, String startDate, String endDate) throws ParseException {
 
-        Date startDate = new DataConverter().parseDate(new CaptureIntervalDate().getFirstDayOfMonth());
-        Date endDate = new DataConverter().parseDate(new CaptureIntervalDate().getLastDayOfMonth());
-
-        String query = "SELECT c FROM Called AS c ";
-        String condition = "WHERE";
-
+        String query = "SELECT c FROM Called AS c WHERE c.createdAt BETWEEN :startDate AND :endDate";
+       
         if (client != null) {
-            query += condition + " c.client = :client";
-            condition = " AND ";
+            query += " AND c.client = :client";
         }
 
         if (user != null) {
-            query += condition + " c.user = :user";
-            condition = " AND ";
+            query += " AND c.user = :user";
         }
 
         if (sector != null) {
-            query += condition + " c.sector = :sector";
-            condition = " AND ";
+            query += " AND c.sector = :sector";
         }
 
         if (status != null) {
-            query += condition + " c.status = :status";
-            condition = " AND ";
+            query += " AND c.status = :status";
         }
 
         if(startDate != null && endDate != null) {
-            query += condition + " c.createdAt BETWEEN :startDate AND :endDate";
+            query += " AND c.createdAt BETWEEN :startDate AND :endDate";
         }
 
         TypedQuery<Called> qry = em.createQuery(query, Called.class);
@@ -123,8 +114,8 @@ public class CalledCustomRepository {
         }
 
         if (startDate != null && endDate != null) {
-            qry.setParameter("startDate", startDate);
-            qry.setParameter("endDate", endDate);
+            qry.setParameter("startDate", new DataConverter().parseDate(startDate));
+            qry.setParameter("endDate", new DataConverter().parseDate(endDate));
         }
 
         return qry.getResultList().size();

@@ -14,18 +14,18 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tb_technical_reports")
+@Table(name = "tb_comments")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TechnicalReport implements Serializable {
+public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +34,8 @@ public class TechnicalReport implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @JsonIgnore
     @ManyToOne
+    @JsonBackReference
     private Called called;
     
     @OneToOne

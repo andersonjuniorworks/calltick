@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -65,27 +68,30 @@ public class Called implements Serializable {
     @ApiModelProperty(value = "Usuário que fechou o chamado")
     private String closeBy;
 
-    @ApiModelProperty(value = "Relato técnico ao finalizar o chamado")
-    @OneToMany(mappedBy = "called")
-    private List<TechnicalReport> technicalReports;
+    @ApiModelProperty(value = "Lista de comentários do chamado")
+    @OneToMany(mappedBy = "called", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Comment> comments;
 
     @ApiModelProperty(value = "Situação do chamado: 1 - Aberto; 2 - Pendente; 3 - Finalizado; 4 - Cancelado")
     private int status;
+    
+    @ApiModelProperty(value = "Relato técnico ao finalizar o chamado")
+    private String technicalReport;
 
     @ApiModelProperty(value = "0 - Ativo; 1 - Inativo")
     private int active;
-
+    
     @ApiModelProperty(value = "Data do registro")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 
     public Called() {
-
     }
 
     public Called(Long id, Client client, int typeService, Sector sector, String subject, String description, User user,
-            String openingDate, String closingDate, String openBy, String closeBy, int status, int active,
-            Date createdAt) {
+            String openingDate, String closingDate, String openBy, String closeBy, int status, String technicalReport,
+            int active, Date createdAt) {
         this.id = id;
         this.client = client;
         this.typeService = typeService;
@@ -98,6 +104,7 @@ public class Called implements Serializable {
         this.openBy = openBy;
         this.closeBy = closeBy;
         this.status = status;
+        this.technicalReport = technicalReport;
         this.active = active;
         this.createdAt = createdAt;
     }
@@ -190,12 +197,12 @@ public class Called implements Serializable {
         this.closeBy = closeBy;
     }
 
-    public List<TechnicalReport> getTechnicalReports() {
-        return technicalReports;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setTechnicalReports(List<TechnicalReport> technicalReports) {
-        this.technicalReports = technicalReports;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public int getStatus() {
@@ -204,6 +211,14 @@ public class Called implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getTechnicalReport() {
+        return technicalReport;
+    }
+
+    public void setTechnicalReport(String technicalReport) {
+        this.technicalReport = technicalReport;
     }
 
     public int getActive() {

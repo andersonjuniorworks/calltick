@@ -69,8 +69,16 @@ public class CalledService {
         return calledRepo.findByPeriod(startDate, endDate);
     }
 
-    public Integer countByFilter(Client client, User user, Sector sector, Integer status) throws ParseException {
-        return calledCustomRepo.count(client, user, sector, status);
+    public Integer countByFilter(Client client, User user, Sector sector, Integer status, String startDate, String endDate) throws ParseException {
+        return calledCustomRepo.count(client, user, sector, status, startDate, endDate);
+    }
+
+    public Integer countByUser(User user, Date startDate, Date endDate) {
+        return calledRepo.countCustom(user, startDate, endDate);
+    }
+
+    public Integer countByStatus(Integer status) {
+        return calledRepo.countByStatus(status);
     }
     
     public Long count() {
@@ -113,7 +121,6 @@ public class CalledService {
         
         obj.setClosingDate(formatClosingDate.format(new Date()));
         obj.setStatus(CalledStatus.FINALIZADO.getCode());
-
         updateData(newObj, obj);
         return calledRepo.save(newObj);
     }
@@ -149,7 +156,7 @@ public class CalledService {
     public Called fromDTO(CalledDto objDto) {
         return new Called(objDto.getId(), objDto.getClient(), objDto.getTypeService(), objDto.getSector(), objDto.getSubject(),
                 objDto.getDescription(), objDto.getUser(), objDto.getOpeningDate(), objDto.getClosingDate(),
-                objDto.getOpenBy(), objDto.getCloseBy(), objDto.getStatus(), objDto.getActive(), objDto.getCreatedAt());
+                objDto.getOpenBy(), objDto.getCloseBy(), objDto.getStatus(), objDto.getTechnicalReport(), objDto.getActive(), objDto.getCreatedAt());
     }
 
     private void updateData(Called newObj, Called obj) {
@@ -164,6 +171,7 @@ public class CalledService {
         newObj.setOpeningDate(obj.getOpeningDate());
         newObj.setClosingDate(obj.getClosingDate());
         newObj.setStatus(obj.getStatus());
+        newObj.setTechnicalReport(obj.getTechnicalReport());
         newObj.setActive(obj.getActive());
     }
 
