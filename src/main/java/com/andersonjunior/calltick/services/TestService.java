@@ -6,8 +6,10 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.andersonjunior.calltick.models.Called;
+import com.andersonjunior.calltick.models.Category;
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Contract;
+import com.andersonjunior.calltick.models.KnowledgeBase;
 import com.andersonjunior.calltick.models.Paid;
 import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.Comment;
@@ -16,8 +18,10 @@ import com.andersonjunior.calltick.models.enums.CalledStatus;
 import com.andersonjunior.calltick.models.enums.ClientType;
 import com.andersonjunior.calltick.models.enums.Profile;
 import com.andersonjunior.calltick.repositories.CalledRepository;
+import com.andersonjunior.calltick.repositories.CategoryRepository;
 import com.andersonjunior.calltick.repositories.ClientRepository;
 import com.andersonjunior.calltick.repositories.ContractRepository;
+import com.andersonjunior.calltick.repositories.KnowledgeBaseRepository;
 import com.andersonjunior.calltick.repositories.PaidRepository;
 import com.andersonjunior.calltick.repositories.SectorRepository;
 import com.andersonjunior.calltick.repositories.CommentRepository;
@@ -50,6 +54,12 @@ public class TestService {
 
     @Autowired
     private CommentRepository commentRepo;
+
+    @Autowired
+    private CategoryRepository categoryRepo;
+
+    @Autowired
+    private KnowledgeBaseRepository knowledgeBaseRepo;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -133,6 +143,14 @@ public class TestService {
         Paid p1 = new Paid(null, c1, new Date(), 150.00, new Date());
         Paid p2 = new Paid(null, c2, new Date(), 400.00, new Date());
         paidRepo.saveAll(Arrays.asList(p1, p2));
+
+        Category cat1 = new Category(null, "SOLUÇÕES DE ERROS", new Date(), u1, null, null);
+        Category cat2 = new Category(null, "USABILIDADE", new Date(), u3, null, null);
+        categoryRepo.saveAll(Arrays.asList(cat1, cat2));
+
+        KnowledgeBase kb1 = new KnowledgeBase(null, cat1, "LOOP INFINITO NA ATUALIZAÇÃO", "Devido a diversas atualizações e alguns clientes possuirem sistema bem desatualizados, um loop infinito é apresentado...", new Date(), u1, null, null);
+        KnowledgeBase kb2 = new KnowledgeBase(null, cat2, "ENTRADA DE NOTAS POR IMPORTAÇÃO", "Para importar um XML você deve fazer o seguinte...", new Date(), u3, null, null);
+        knowledgeBaseRepo.saveAll(Arrays.asList(kb1, kb2));
 
     }
 
