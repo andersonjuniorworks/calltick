@@ -38,7 +38,7 @@ public class KnowledgeBaseService {
     @Transactional
     public KnowledgeBase insert(KnowledgeBase knowledgeBase) {
         knowledgeBase.setId(null);
-        return knowledgeBaseRepository.save(knowledgeBase);
+         return knowledgeBaseRepository.save(knowledgeBase);
     }
 
     @Transactional
@@ -46,6 +46,10 @@ public class KnowledgeBaseService {
         KnowledgeBase newObj = findById(obj.getId());
         updateData(newObj, obj);
         return knowledgeBaseRepository.save(newObj);
+    }
+
+    public List<KnowledgeBase> findByDescription(String description) {
+        return knowledgeBaseRepository.findByDescriptionContainingIgnoreCase(description);
     }
 
     private void updateData(KnowledgeBase newObj, KnowledgeBase obj) {

@@ -9,6 +9,7 @@ import com.andersonjunior.calltick.models.Category;
 import com.andersonjunior.calltick.repositories.CategoryRepository;
 import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,20 @@ public class CategoryService {
         Category newObj = findById(obj.getId());
         updateData(newObj, obj);
         return categoryRepository.save(newObj);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        findById(id);
+        if (id != 1) {
+            try {
+                categoryRepository.deleteById(id);
+            } catch (DataIntegrityViolationException e) {
+                throw new DataIntegrityViolationException("Não é possível excluir esta categoria!");
+            }
+        } else {
+            throw new DataIntegrityViolationException("Não é possível excluir a categoria padrão!");
+        }
     }
 
     private void updateData(Category newObj, Category obj) {

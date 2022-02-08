@@ -31,7 +31,7 @@ public class KnowledgeBase implements Serializable {
     @OneToOne
     private Category category;
 
-    @Column(length = 100)
+    @Column(length = 300)
     private String title;
 
     @Column(columnDefinition = "LONGTEXT")

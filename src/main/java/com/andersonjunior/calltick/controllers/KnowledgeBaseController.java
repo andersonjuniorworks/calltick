@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.andersonjunior.calltick.models.KnowledgeBase;
 import com.andersonjunior.calltick.services.KnowledgeBaseService;
+import com.mysql.fabric.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping(value = "/api/knowledges")
@@ -43,6 +44,14 @@ public class KnowledgeBaseController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Retorna um registro por descrição")
+    @GetMapping(value = "/description")
+    public ResponseEntity<List<KnowledgeBase>> findByDescription(@RequestParam(name = "value", required = true) String description) {
+        List<KnowledgeBase> list = knowledgeBaseService.findByDescription(description);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Retorna todos os registros na base de conhecimento")
     @GetMapping
     public ResponseEntity<List<KnowledgeBase>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
@@ -56,6 +65,7 @@ public class KnowledgeBaseController {
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody KnowledgeBase knowledgeBase) {
         knowledgeBase = knowledgeBaseService.insert(knowledgeBase);
+        System.out.println("AQUI: "+knowledgeBase);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(knowledgeBase.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
