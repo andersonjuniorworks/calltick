@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:remove="all">Abertura de Chamado</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      .header {
+        position: relative;
+        width: calc(100% - 20px);
+        height: 50px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        background: #6731ec !important;
+        color: #fff !important;
+      }
+      .content {
+        position: relative;
+        width: calc(100% - 20px);
+        padding: 0 10px;
+        border: 1px solid;
+        background: #fff !important;
+        color: #6731ec !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="header">
+        <h2>
+          <span th:text="${ticket.client.nickname}"></span>
+        </h2>
+      </div>
+      <div class="content">
+        <p>
+          Responsável:
+          <span th:text="${ticket.user.fullname}"></span>
+        </p>
+        <p>
+          Protocolo: <span th:text="${ticket.id}"></span>/<span
+            th:text="${ticket.createdAt}"
+          ></span>
+        </p>
+        <p>
+          Abertura:
+          <span th:text="${ticket.openingDate}"></span>
+        </p>
+        <p th:if="${ticket.closingDate}">
+          Encerramento:
+          <span th:text="${ticket.closingDate}"></span>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

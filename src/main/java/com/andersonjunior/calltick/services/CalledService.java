@@ -34,6 +34,9 @@ public class CalledService {
     @Autowired
     private TransfersRespository transfersRespo;
 
+    @Autowired
+	private EmailService emailService;
+
     private final CalledCustomRepository calledCustomRepo;
 
     @Autowired
@@ -94,7 +97,9 @@ public class CalledService {
         obj.setCreatedAt(new Date());
         obj.setStatus(CalledStatus.ABERTO.getCode());
         obj.setActive(0);
-        return calledRepo.save(obj);
+        calledRepo.save(obj);
+        emailService.sendTicketConfirmationHtmlEmail(obj);
+        return obj;
     }
 
     @Transactional
@@ -114,14 +119,12 @@ public class CalledService {
 
     @Transactional
     public Called finishCalled(Called obj) {
-
         SimpleDateFormat formatClosingDate = new SimpleDateFormat();
-
         Called newObj = findById(obj.getId());
-        
         obj.setClosingDate(formatClosingDate.format(new Date()));
         obj.setStatus(CalledStatus.FINALIZADO.getCode());
         updateData(newObj, obj);
+        emailService.sendTicketFinishEmail(obj);
         return calledRepo.save(newObj);
     }
 
@@ -174,5 +177,7 @@ public class CalledService {
         newObj.setTechnicalReport(obj.getTechnicalReport());
         newObj.setActive(obj.getActive());
     }
+
+    
 
 }

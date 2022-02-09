@@ -1,6 +1,7 @@
 package com.andersonjunior.calltick.models;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -236,5 +237,28 @@ public class Called implements Serializable {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(getClient().getNickname()+"\n\n");
+        builder.append("Assunto: ");
+        builder.append(getSubject()+"\n\n");
+        builder.append("Responsável: ");
+        builder.append(getUser().getFullname()+"\n\n");
+        builder.append("Abertura: ");
+        builder.append(format.format(getCreatedAt())+"\n\n");
+
+        if(getClosingDate() != null) {
+            builder.append("Fechamento: ");
+            builder.append(getClosingDate());
+        }
+
+        builder.append("\n\n");
+        return builder.toString();
+    }    
     
 }

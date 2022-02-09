@@ -69,7 +69,7 @@ public class TestService {
         User u1 = new User(null, "Administrador", "admin@admin.com", encoder.encode("printf@javadev"),
                 Profile.ADMINISTRADOR.getCode());
         User u2 = new User(null, "Ana Vitória", "vitoria@gmail.com", encoder.encode("123"), Profile.ATENDENTE.getCode());
-        User u3 = new User(null, "Gonçalo Neto", "neto@gmail.com", encoder.encode("123"), Profile.TECNICO.getCode());
+        User u3 = new User(null, "Gonçalo Neto", "andersonjunior.tech@gmail.com", encoder.encode("123"), Profile.TECNICO.getCode());
         userRepo.saveAll(Arrays.asList(u1, u2, u3));
 
         Sector s1 = new Sector(null, "Suporte Técnico");
@@ -91,7 +91,7 @@ public class TestService {
                 new Date());
         Client c2 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "26729461000193", "",
                 "S & A Automação Comercial", "Saraiva Automação", "63700000", "Rua Vereador José Veras", "1341", "Casa",
-                "Centro", "Ceará", "Novo Oriente", "88994354507", null, "saraivaautomacao@gmail.com", ct2, new Date());
+                "Centro", "Ceará", "Novo Oriente", "88994354507", null, "thiagomarques706@gmail.com", ct2, new Date());
         Client c3 = new Client(null, ClientType.PESSOAJURIDICA.getCode(), "37616795000177", "", "Samuel de Souza Melo",
                 "SA Informática", "63702170", "Rua Manoel Balbino", "72", "Casa", "Centro", "Ceará", "Crateús",
                 "88994354507", null, "sainformatica@gmail.com", ct2, new Date());
