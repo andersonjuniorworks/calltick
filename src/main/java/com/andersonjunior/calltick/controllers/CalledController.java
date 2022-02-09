@@ -17,6 +17,7 @@ import com.andersonjunior.calltick.utils.DataConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -125,7 +126,7 @@ public class CalledController {
         
     }
 
-    @CrossOrigin
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @ApiOperation(value = "Inserir chamado")
     @PostMapping(value = "/insert", produces = "application/json")
     public ResponseEntity<Called> insert(@Valid @RequestBody CalledDto objDto) {
@@ -135,7 +136,7 @@ public class CalledController {
         return ResponseEntity.created(uri).body(obj);
     }
 
-    @CrossOrigin
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @ApiOperation(value = "Editar chamado")
     @PutMapping(value = "/update/{id}", produces = "application/json")
     public ResponseEntity<Void> update(@Valid @RequestBody Called called, @PathVariable Long id) {
@@ -144,7 +145,7 @@ public class CalledController {
         return ResponseEntity.noContent().build();
     }
 
-    @CrossOrigin
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @ApiOperation(value = "Excluir chamado")
     @PutMapping(value = "/delete/{id}", produces = "application/json")
     public ResponseEntity<Void> delete(@Valid @RequestBody Called called, @PathVariable Long id) {
