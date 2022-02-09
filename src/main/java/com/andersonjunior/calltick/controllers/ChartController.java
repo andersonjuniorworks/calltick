@@ -9,12 +9,12 @@ import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.TicketByUser;
 import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.models.enums.CalledStatus;
-import com.andersonjunior.calltick.component.DataConverter;
 import com.andersonjunior.calltick.models.Contract;
 import com.andersonjunior.calltick.services.CalledService;
 import com.andersonjunior.calltick.services.SectorService;
 import com.andersonjunior.calltick.services.TicketByUserService;
 import com.andersonjunior.calltick.services.UserService;
+import com.andersonjunior.calltick.utils.DataConverter;
 import com.andersonjunior.calltick.services.ClientService;
 import com.andersonjunior.calltick.services.ContractService;
 

@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.andersonjunior.calltick.component.DataConverter;
 import com.andersonjunior.calltick.dto.CalledDto;
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.User;
 import com.andersonjunior.calltick.services.CalledService;
+import com.andersonjunior.calltick.utils.DataConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

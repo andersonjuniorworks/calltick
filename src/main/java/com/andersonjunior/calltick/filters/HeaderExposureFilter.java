@@ -32,4 +32,5 @@ public class HeaderExposureFilter implements Filter {
 	@Override
 	public void destroy() {
 	}
+	
 }

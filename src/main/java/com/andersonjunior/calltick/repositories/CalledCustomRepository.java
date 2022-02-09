@@ -7,11 +7,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import com.andersonjunior.calltick.component.DataConverter;
 import com.andersonjunior.calltick.models.Called;
 import com.andersonjunior.calltick.models.Client;
 import com.andersonjunior.calltick.models.Sector;
 import com.andersonjunior.calltick.models.User;
+import com.andersonjunior.calltick.utils.DataConverter;
 
 import org.springframework.stereotype.Repository;
 

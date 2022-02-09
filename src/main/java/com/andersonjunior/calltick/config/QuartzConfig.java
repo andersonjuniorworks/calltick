@@ -1,6 +1,6 @@
 package com.andersonjunior.calltick.config;
 
-import com.andersonjunior.calltick.component.Backup;
+import com.andersonjunior.calltick.utils.Backup;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -21,7 +21,7 @@ public class QuartzConfig {
     @Bean
     public Trigger testQuartzTrigger(){
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInSeconds(43200)  //Set the time period in seconds
+                .withIntervalInSeconds(43200)
                 .repeatForever();
         return TriggerBuilder.newTrigger().forJob(teatQuartzDetail())
                 .withIdentity("testQuartz")

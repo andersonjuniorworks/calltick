@@ -1,4 +1,4 @@
-package com.andersonjunior.calltick.component;
+package com.andersonjunior.calltick.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
