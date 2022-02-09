@@ -6,6 +6,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import com.andersonjunior.calltick.models.Called;
+import com.andersonjunior.calltick.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,22 @@ public abstract class AbstractMailService implements EmailService {
 	public void sendTicketConfirmationEmail(Called obj) {
 		SimpleMailMessage sm = prepareSimpleMailMessageFromTicket(obj);
 		sendEmail(sm);
+	}
+
+	@Override
+	public void sendNewPasswordEmail(User user, String newPassword) {
+		SimpleMailMessage sm = prepareNewPasswordEmail(user, newPassword);
+		sendEmail(sm);
+	}
+
+	protected SimpleMailMessage prepareNewPasswordEmail(User user, String newPassword) {
+		SimpleMailMessage sm = new SimpleMailMessage();
+		sm.setTo(user.getEmail());
+		sm.setFrom(sender);
+		sm.setSubject("Recuperação de Senha - Calltick");
+		sm.setSentDate(new Date(System.currentTimeMillis()));
+		sm.setText("Nova senha: " + newPassword);
+		return sm;
 	}
 
 	@Override
