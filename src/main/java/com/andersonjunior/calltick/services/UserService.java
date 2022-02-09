@@ -7,12 +7,16 @@ import javax.transaction.Transactional;
 
 import com.andersonjunior.calltick.dto.UserDto;
 import com.andersonjunior.calltick.models.User;
+import com.andersonjunior.calltick.models.enums.Profile;
 import com.andersonjunior.calltick.repositories.UserRepository;
+import com.andersonjunior.calltick.security.UserSpringSecurity;
+import com.andersonjunior.calltick.services.exceptions.AuthorizationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +29,31 @@ public class UserService {
     @Autowired
     private PasswordEncoder encoder;
 
+    public static UserSpringSecurity authenticated() {
+        try {
+            return (UserSpringSecurity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch(Exception ex) {
+            return null;
+        }
+    }
+
     public List<User> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return userRepo.findAll(pageable).getContent();
     }
 
     public User find(Long id) {
+
+        UserSpringSecurity user = UserService.authenticated();
+
+        if(user == null || !user.hasRole(Profile.ADMINISTRADOR) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso Negado!");
+        }   
+
         Optional<User> obj = userRepo.findById(id);
+
         obj.get().getPassword();
+
         return obj.orElseThrow();
     }
 

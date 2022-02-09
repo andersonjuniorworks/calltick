@@ -2,6 +2,7 @@ package com.andersonjunior.calltick.controllers.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.andersonjunior.calltick.services.exceptions.AuthorizationException;
 import com.andersonjunior.calltick.services.exceptions.DataIntegrityException;
 import com.andersonjunior.calltick.services.exceptions.ObjectNotFoundException;
 
@@ -37,6 +38,12 @@ public class ControllerExceptionHandler {
 			err.addError(x.getField(), x.getDefaultMessage());
 		}		
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+	}
+
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Não encontrado", e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
 
 }
