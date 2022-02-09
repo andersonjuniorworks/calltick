@@ -28,6 +28,7 @@ import com.andersonjunior.calltick.repositories.CommentRepository;
 import com.andersonjunior.calltick.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -62,14 +63,18 @@ public class TestService {
     private KnowledgeBaseRepository knowledgeBaseRepo;
 
     @Autowired
-    private PasswordEncoder encoder;
+    private BCryptPasswordEncoder encoder;
 
     public void instantiateTestDatabase() throws ParseException {
 
-        User u1 = new User(null, "Administrador", "admin@admin.com", encoder.encode("printf@javadev"),
-                Profile.ADMINISTRADOR.getCode());
-        User u2 = new User(null, "Ana Vitória", "vitoria@gmail.com", encoder.encode("123"), Profile.ATENDENTE.getCode());
-        User u3 = new User(null, "Gonçalo Neto", "andersonjunior.tech@gmail.com", encoder.encode("123"), Profile.TECNICO.getCode());
+        User u1 = new User(null, "Administrador", "admin@admin.com", encoder.encode("printf@javadev"), 0, "https://ui-avatars.com/api/?background=6731ec&color=fff&rounded=true&bold=true&name=ADMINISTRADOR&length=2");
+        u1.addProfile(Profile.ADMINISTRADOR);
+        
+        User u2 = new User(null, "Ana Vitória", "vitoria@gmail.com", encoder.encode("123"), 0, "");
+        u1.addProfile(Profile.ATENDENTE);
+
+        User u3 = new User(null, "Gonçalo Neto", "andersonjunior.tech@gmail.com", encoder.encode("123"), 0, "");
+        
         userRepo.saveAll(Arrays.asList(u1, u2, u3));
 
         Sector s1 = new Sector(null, "Suporte Técnico");

@@ -29,7 +29,8 @@ public class UserDto implements Serializable {
     @NotEmpty(message = "Preenchimento obrigatório")
     private String password;
 
-    private Integer profile;
-    private Integer status;
+    private Integer isActive;
+
+    private String avatar;
 
 }
