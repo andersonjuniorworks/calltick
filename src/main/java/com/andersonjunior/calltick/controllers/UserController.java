@@ -68,7 +68,6 @@ public class UserController {
         return new ResponseEntity<User>(userService.findByEmail(email), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @ApiOperation(value = "Retorna usuários por nome completo")
     @GetMapping(value = "/fullname")
     public ResponseEntity<List<User>> findByFullname(@RequestParam(value = "value") String fullname) {
@@ -80,21 +79,10 @@ public class UserController {
     public ResponseEntity<Void> insert(@Valid @RequestBody UserDto objDto) {
         User obj = userService.fromDTO(objDto);
         obj = userService.insert(obj);
+        System.out.println("SENHA: "+objDto.getPassword());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
-
-/*     @CrossOrigin
-    @GetMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestParam String email, @RequestParam String password) {
-        User optUser = userService.findByEmail(email);
-        if (optUser == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
-        }
-        boolean valid = encoder.matches(password, optUser.getPassword());
-        HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-        return ResponseEntity.status(status).body(valid);
-    } */
 
     @ApiOperation(value = "Edita um usuário")
     @PutMapping(value = "/{id}")

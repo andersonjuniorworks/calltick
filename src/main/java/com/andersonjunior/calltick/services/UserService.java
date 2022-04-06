@@ -17,7 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,7 +27,7 @@ public class UserService {
     private UserRepository userRepo;
 
     @Autowired
-    private PasswordEncoder encoder;
+	private BCryptPasswordEncoder encoder;
 
     public static UserSpringSecurity authenticated() {
         try {
@@ -103,7 +103,7 @@ public class UserService {
     }
 
     public User fromDTO(UserDto objDto) {
-        return new User(objDto.getId(), objDto.getFullname(), objDto.getEmail(), null, objDto.getIsActive(), objDto.getAvatar());
+        return new User(objDto.getId(), objDto.getFullname(), objDto.getEmail(), objDto.getPassword(), objDto.getIsActive(), objDto.getAvatar());
     }
 
     private void updateData(User newObj, User obj) {

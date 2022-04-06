@@ -37,7 +37,6 @@ public class User implements Serializable {
     private String avatar;
 
     public User() {
-        addProfile(Profile.TECNICO);
     }
 
     public User(Long id, String fullname, String email, String password, Integer isActive, String avatar) {
@@ -47,7 +46,6 @@ public class User implements Serializable {
         this.password = password;
         this.isActive = isActive;
         this.avatar = avatar;
-        addProfile(Profile.TECNICO);
     }
 
     public Long getId() {

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class NotificationController {
 
     private final List<User> users = new ArrayList<>();
@@ -29,7 +30,6 @@ public class NotificationController {
     @Autowired
     private CalledService calledService;
 
-    @CrossOrigin
     @GetMapping("/notify")
     public String getNotification() {
         notification.setMessage("Chamado aberto com sucesso!");
@@ -37,7 +37,6 @@ public class NotificationController {
         return notification.getMessage();
     }
 
-    @CrossOrigin
     @GetMapping("/connected")
     public List<User> getConnected(@RequestParam User user) {
         template.convertAndSend("/topic/connected", notification);
@@ -47,7 +46,6 @@ public class NotificationController {
         return users;
     }
 
-    @CrossOrigin
     @GetMapping("/disconnect")
     public List<User> getDisconnect(@RequestParam User user) {
         template.convertAndSend("/topic/disconnected", notification);
@@ -55,14 +53,12 @@ public class NotificationController {
         return users;
     }
 
-    @CrossOrigin
     @GetMapping("/usersConnected")
     public List<User> getUserConnected() {
         template.convertAndSend("/topic/users", notification);
         return users;
     }
 
-    @CrossOrigin
     @GetMapping("/getTickets")
     public ResponseEntity<List<Called>> getTickets() {
         List<Called> list = calledService.findAll(0, 1000000);
@@ -70,7 +66,6 @@ public class NotificationController {
         return ResponseEntity.ok().body(list);
     }
 
-    @CrossOrigin
     @GetMapping("/getUsers")
     public ResponseEntity<List<User>> getUsers() {
         template.convertAndSend("/topic/tickets", users);

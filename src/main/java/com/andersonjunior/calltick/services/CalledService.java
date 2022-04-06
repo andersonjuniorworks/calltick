@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Service
 public class CalledService {
@@ -43,7 +44,7 @@ public class CalledService {
     public CalledService(CalledCustomRepository calledCustomRepo) {
         this.calledCustomRepo = calledCustomRepo;
     }
-
+    
     public List<Called> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return calledRepo.findAll(pageable).getContent();

@@ -22,13 +22,14 @@ public class HeaderExposureFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-
 		HttpServletResponse res = (HttpServletResponse) response;
 		res.addHeader("access-control-expose-headers", "location");
-		res.addHeader("x-ticket-count", "location");
+		res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
+        res.setHeader("Access-Control-Allow-Headers", "*");
 		chain.doFilter(request, response);
 	}
-
+	
 	@Override
 	public void destroy() {
 	}

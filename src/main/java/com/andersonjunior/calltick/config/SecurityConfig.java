@@ -26,7 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     private Environment env;
@@ -39,23 +39,47 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     private static final String[] PUBLIC_MATCHERS = {
         "/h2-console/**",
+        "/notify/**",
+        "/disconnected/**",
+        "/connected/**",
+        "/usersConnected/**",
+        "/getTickets/**",
+        "/info/**"
     };
 
     private static final String[] PUBLIC_MATCHERS_GET = {
-        "/api/users/**",
+        "/getUsers/**",
+        "/api/clients/count/**",
+        "/api/users/count/**",
+        "/api/sectors/**",
+        "/info"
     };
-
+    
     private static final String[] PUBLIC_MATCHERS_POST = {
-        "/api/users/**",
         "/auth/forgot/**"
     };
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS", "PATCH"));        
+        configuration.setAllowCredentials(false);
+
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+        
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
+        /* if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
-        }
+        } */
 
         http.cors().and().csrf().disable();
         http.authorizeRequests()
@@ -66,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil));
         http.addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        
     }
 
     @Override
@@ -73,21 +98,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-
-        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "OPTIONS"));
-
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-        
-    }
-
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+/*     @Override
+    public void addCorsMappings(CorsRegistry corsRegistry) {
+        corsRegistry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("*")
+                .maxAge(3600L)
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization")
+                .allowCredentials(false);
+    }
+ */
 
 }
