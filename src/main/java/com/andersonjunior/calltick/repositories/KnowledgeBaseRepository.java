@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KnowledgeBaseRepository extends JpaRepository<KnowledgeBase, Long>{
     
-    List<KnowledgeBase> findByDescriptionContainingIgnoreCase(String description);
+    List<KnowledgeBase> findByDescriptionContainsIgnoreCase(String description);
 
     List<KnowledgeBase> findByCategory(Category category);
 

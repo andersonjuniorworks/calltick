@@ -74,7 +74,7 @@ public class UserService {
     public User insert(User obj) {
         obj.setId(null);
         obj.setPassword(encoder.encode(obj.getPassword()));
-        obj.setAvatar("https://ui-avatars.com/api/?background=6731ec&color=fff&rounded=true&bold=true&length=2&name="+obj.getFullname());
+        obj.setAvatar("https://ui-avatars.com/api/?background=2667DF&color=fff&rounded=true&bold=true&length=2&name="+obj.getFullname());
         return userRepo.save(obj);
     }
 

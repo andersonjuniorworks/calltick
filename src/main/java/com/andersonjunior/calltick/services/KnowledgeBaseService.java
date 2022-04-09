@@ -49,7 +49,7 @@ public class KnowledgeBaseService {
     }
 
     public List<KnowledgeBase> findByDescription(String description) {
-        return knowledgeBaseRepository.findByDescriptionContainingIgnoreCase(description);
+        return knowledgeBaseRepository.findByDescriptionContainsIgnoreCase(description);
     }
 
     private void updateData(KnowledgeBase newObj, KnowledgeBase obj) {

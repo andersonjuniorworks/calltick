@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import com.andersonjunior.calltick.models.KnowledgeBase;
 import com.andersonjunior.calltick.services.KnowledgeBaseService;
-import com.mysql.fabric.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

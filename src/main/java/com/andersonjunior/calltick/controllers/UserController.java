@@ -52,7 +52,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size) {
-        return new ResponseEntity<List<User>>(userService.findAll(page, size), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(page, size), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Retorna a quantidade de usuários no banco")
@@ -63,9 +63,11 @@ public class UserController {
     }
 
     @ApiOperation(value = "Retorna usuários por email")
+    @CrossOrigin
     @GetMapping(value = "/email")
     public ResponseEntity<User> findByEmail(@RequestParam(value = "value") String email) {
-        return new ResponseEntity<User>(userService.findByEmail(email), HttpStatus.OK);
+        User user = userService.findByEmail(email);
+        return ResponseEntity.ok().body(user);
     }
 
     @ApiOperation(value = "Retorna usuários por nome completo")
@@ -79,7 +81,6 @@ public class UserController {
     public ResponseEntity<Void> insert(@Valid @RequestBody UserDto objDto) {
         User obj = userService.fromDTO(objDto);
         obj = userService.insert(obj);
-        System.out.println("SENHA: "+objDto.getPassword());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
