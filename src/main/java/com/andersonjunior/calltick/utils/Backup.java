@@ -16,7 +16,7 @@ public class Backup extends QuartzJobBean {
         String caminho = "C:\\calltick\\utils\\mysqldump.exe";
         try {
           Runtime bck = Runtime.getRuntime();
-          bck.exec(caminho + " -v -v -v --host=localhost --user=root --password=printf@javadev --port=3306 --protocol=tcp --force --allow-keywords --compress  --add-drop-table --default-character-set=latin1 --hex-blob  --result-file=" + arquivo + " --databases calltickdb");
+          bck.exec(caminho + " -v -v -v --host=localhost --user=root --password= --port=3306 --protocol=tcp --force --allow-keywords --compress  --add-drop-table --default-character-set=latin1 --hex-blob  --result-file=" + arquivo + " --databases calltickdb");
         } catch (IOException e) {
           System.out.println(e);
         } 
